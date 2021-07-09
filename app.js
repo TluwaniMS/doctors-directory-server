@@ -1,13 +1,13 @@
-const express = require('express')
-const cors = require('cors')
-const helmet = require("helmet");
+const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
 const dotenv = require('dotenv');
-const app = express()
+const app = express();
 
 dotenv.config();
-app.use(cors())
+app.use(cors());
 app.use(helmet());
 
 module.exports = {
-    app
-}
+	app
+};

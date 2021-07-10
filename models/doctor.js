@@ -16,7 +16,11 @@ const Doctor = sequelize.define('Doctor', {
 	email: { type: DataTypes.STRING, allowNull: false }
 });
 
-Hospital.hasMany(Doctor, { foreignKey: 'hospital' });
+Hospital.hasMany(Doctor, {
+	foreignKey: 'hospital',
+	onDelete: 'SET NULL',
+	onUpdate: 'CASCADE'
+});
 Doctor.belongsTo(Hospital);
 
 Specialisation.hasMany(Doctor, { foreignKey: 'specialty' });

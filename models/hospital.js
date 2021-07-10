@@ -7,7 +7,11 @@ const Hospital = sequelize.define('Hospital', {
 	hospitalKey: { type: DataTypes.STRING, allowNull: false, primaryKey: true }
 });
 
-Municipality.hasMany(Hospital, { foreignKey: 'municipality' });
+Municipality.hasMany(Hospital, {
+	foreignKey: 'municipality',
+	onDelete: 'SET NULL',
+	onUpdate: 'CASCADE'
+});
 Hospital.belongsTo(Municipality);
 
 await Hospital.sync({ force: true });

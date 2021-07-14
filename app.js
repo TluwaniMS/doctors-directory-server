@@ -7,12 +7,11 @@ const {
 	unknownRequests,
 	errorResponse
 } = require('./middleware/error-handler');
-
-const authenticationRoute = require('./routes/authentication');
-const bookRentalsRoute = require('./routes/book-rental');
-const booksRoute = require('./routes/books');
-const rentedBooksRoute = require('./routes/rented-books');
-const usersRoute = require('./routes/users');
+const doctorsRoute = require('./routes/doctors');
+const hospitalsRoute = require('./routes/hospitals');
+const authenticationsRoute = require('./routes/authentication');
+const specialitiesRoute = require('./routes/specialities');
+const municipalitiesRoute = require('./routes/municipalities');
 const app = express();
 
 dotenv.config();
@@ -24,11 +23,11 @@ app.use(
 	morgan(':method :url :status :res[content-length] - :response-time ms')
 );
 
-app.use('/api/authentication', authenticationRoute);
-app.use('/api/book-rentals', bookRentalsRoute);
-app.use('/api/books', booksRoute);
-app.use('/api/rented-books', rentedBooksRoute);
-app.use('/api/users', usersRoute);
+app.use('/api/doctors', doctorsRoute);
+app.use('/api/hospitals', hospitalsRoute);
+app.use('/api/authentications', authenticationsRoute);
+app.use('/api/specialties', specialitiesRoute);
+app.use('/api/municipalities', municipalitiesRoute);
 
 app.use(unknownRequests);
 app.use(errorResponse);

@@ -27,4 +27,4 @@ Specialisation.hasMany(Doctor, { foreignKey: 'specialty' });
 Doctor.belongsTo(Specialisation);
 
 await Doctor.sync({ force: true });
-module.exports = Doctor;
+module.exports = { Doctor };

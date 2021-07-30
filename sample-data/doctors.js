@@ -5,7 +5,7 @@ const doctors = [
 		gender: 'Male',
 		password: 'dean1234',
 		email: 'dean@mock.com',
-		hospital: '',
+		hospital: 'SKKN',
 		specialty: ''
 	},
 	{
@@ -14,7 +14,7 @@ const doctors = [
 		gender: 'Female',
 		password: 'lufu1234',
 		email: 'lufuno@mock.com',
-		hospital: '',
+		hospital: 'PLKH',
 		specialty: ''
 	},
 	{
@@ -23,7 +23,7 @@ const doctors = [
 		gender: 'Female',
 		password: 'refi1234',
 		email: 'refilwe@mock.com',
-		hospital: '',
+		hospital: 'DNDH',
 		specialty: ''
 	},
 	{
@@ -32,7 +32,7 @@ const doctors = [
 		gender: 'Female',
 		password: 'seba1234',
 		email: 'seba@mock.com',
-		hospital: '',
+		hospital: 'DNDH',
 		specialty: ''
 	},
 	{
@@ -41,7 +41,7 @@ const doctors = [
 		gender: 'Female',
 		password: 'katl1234',
 		email: 'katlego@mock.com',
-		hospital: '',
+		hospital: 'SKKN',
 		specialty: ''
 	},
 	{
@@ -50,7 +50,7 @@ const doctors = [
 		gender: 'Female',
 		password: 'idah1234',
 		email: 'idah@mock.com',
-		hospital: '',
+		hospital: 'MSSH',
 		specialty: ''
 	},
 	{
@@ -59,7 +59,7 @@ const doctors = [
 		gender: 'Female',
 		password: 'jess1234',
 		email: 'jessica@mock.com',
-		hospital: '',
+		hospital: 'DNDH',
 		specialty: ''
 	},
 	{
@@ -68,7 +68,7 @@ const doctors = [
 		gender: 'Male',
 		password: 'tshe1234',
 		email: 'tshego@mock.com',
-		hospital: '',
+		hospital: 'SKKN',
 		specialty: ''
 	},
 	{
@@ -77,7 +77,7 @@ const doctors = [
 		gender: 'Male',
 		password: 'jeth1234',
 		email: 'jethro@mock.com',
-		hospital: '',
+		hospital: 'PLKH',
 		specialty: ''
 	},
 	{
@@ -86,7 +86,7 @@ const doctors = [
 		gender: 'Female',
 		password: 'kgao1234',
 		email: 'kgaogelo@mock.com',
-		hospital: '',
+		hospital: 'MSSH',
 		specialty: ''
 	},
 	{
@@ -95,7 +95,7 @@ const doctors = [
 		gender: 'Male',
 		password: 'mmad1234',
 		email: 'mmadi@mock.com',
-		hospital: '',
+		hospital: 'BTLK',
 		specialty: ''
 	},
 	{
@@ -104,7 +104,7 @@ const doctors = [
 		gender: 'Female',
 		password: 'abig1234',
 		email: 'abigail@mock.com',
-		hospital: '',
+		hospital: 'NTNP',
 		specialty: ''
 	},
 	{
@@ -113,7 +113,7 @@ const doctors = [
 		gender: 'Female',
 		password: 'mmak1234',
 		email: 'mmakosha@mock.com',
-		hospital: '',
+		hospital: 'SHPO',
 		specialty: ''
 	},
 	{
@@ -122,7 +122,7 @@ const doctors = [
 		gender: 'Female',
 		password: 'dorc1234',
 		email: 'dorcus@mock.com',
-		hospital: '',
+		hospital: 'MRBJ',
 		specialty: ''
 	},
 	{
@@ -131,7 +131,7 @@ const doctors = [
 		gender: 'Male',
 		password: 'denz1234',
 		email: 'denzel@mock.com',
-		hospital: '',
+		hospital: 'NTNP',
 		specialty: ''
 	},
 	{
@@ -140,7 +140,7 @@ const doctors = [
 		gender: 'Female',
 		password: 'lera1234',
 		email: 'lerato@mock.com',
-		hospital: '',
+		hospital: 'SHPO',
 		specialty: ''
 	},
 	{
@@ -149,7 +149,7 @@ const doctors = [
 		gender: 'Male',
 		password: 'lond1234',
 		email: 'londokuhle@mock.com',
-		hospital: '',
+		hospital: 'BLYH',
 		specialty: ''
 	},
 	{
@@ -158,7 +158,7 @@ const doctors = [
 		gender: 'Male',
 		password: 'thov1234',
 		email: 'thovhedzo@mock.com',
-		hospital: '',
+		hospital: 'SHPO',
 		specialty: ''
 	},
 	{
@@ -167,7 +167,7 @@ const doctors = [
 		gender: 'Female',
 		password: 'rene1234',
 		email: 'reneilwe@mock.com',
-		hospital: '',
+		hospital: 'MRSB',
 		specialty: ''
 	},
 	{
@@ -176,7 +176,7 @@ const doctors = [
 		gender: 'Female',
 		password: 'phil1234',
 		email: 'philicia@mock.com',
-		hospital: '',
+		hospital: 'BLMH',
 		specialty: ''
 	},
 	{
@@ -185,7 +185,7 @@ const doctors = [
 		gender: 'Male',
 		password: 'eddy1234',
 		email: 'eddy@mock.com',
-		hospital: '',
+		hospital: 'SHPO',
 		specialty: ''
 	},
 	{
@@ -194,7 +194,7 @@ const doctors = [
 		gender: 'Male',
 		password: 'math1234',
 		email: 'mathibela@mock.com',
-		hospital: '',
+		hospital: 'BLYH',
 		specialty: ''
 	},
 	{
@@ -203,7 +203,7 @@ const doctors = [
 		gender: 'Male',
 		password: 'mpho1234',
 		email: 'mpho@mock.com',
-		hospital: '',
+		hospital: 'BLMH',
 		specialty: ''
 	},
 	{
@@ -212,7 +212,7 @@ const doctors = [
 		gender: 'Male',
 		password: 'lehl1234',
 		email: 'lehlohonolo@mock.com',
-		hospital: '',
+		hospital: 'VTPH',
 		specialty: ''
 	},
 	{
@@ -221,7 +221,7 @@ const doctors = [
 		gender: 'Male',
 		password: 'mpum1234',
 		email: 'mpumi@mock.com',
-		hospital: '',
+		hospital: 'VTPH',
 		specialty: ''
 	}
 ];

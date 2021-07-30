@@ -2,55 +2,67 @@ const hospitals = [
 	{
 		hospitalName: 'Sekhukhune Private Hospital',
 		hospitalKey: 'SKKN',
-		municipality: ''
+		municipality: 'BLBG'
 	},
 	{
 		hospitalName: 'Shapo Private Hospital',
 		hospitalKey: 'SHPO',
-		municipality: ''
+		municipality: 'BLBG'
 	},
 	{
 		hospitalName: 'Polokwane Hospital',
 		hospitalKey: 'PLKH',
-		municipality: ''
+		municipality: 'EKRN'
 	},
 	{
 		hospitalName: 'Botlokwa Hospital',
 		hospitalKey: 'BTLK',
-		municipality: ''
+		municipality: 'WTRV'
 	},
 	{
 		hospitalName: 'Marobjyane Private Hospital',
 		hospitalKey: 'MRBJ',
-		municipality: ''
+		municipality: 'EKRN'
 	},
 	{
 		hospitalName: 'Ntsundeni Private Hospital',
 		hospitalKey: 'NTNP',
-		municipality: ''
+		municipality: 'LNDE'
 	},
-	{ hospitalName: 'Moshe Hospital', hospitalKey: 'MSHH', municipality: '' },
+	{
+		hospitalName: 'Moshe Hospital',
+		hospitalKey: 'MSHH',
+		municipality: 'WTRV'
+	},
 	{
 		hospitalName: 'Marabastad Hospital',
 		hospitalKey: 'MRSB',
-		municipality: ''
+		municipality: 'BLBG'
 	},
-	{ hospitalName: 'Baloyi Hospital', hospitalKey: 'BLYH', municipality: '' },
+	{
+		hospitalName: 'Baloyi Hospital',
+		hospitalKey: 'BLYH',
+		municipality: 'EKRN'
+	},
 	{
 		hospitalName: 'Vhatwanamba Private Health Care',
 		hospitalKey: 'VTPH',
-		municipality: ''
+		municipality: 'CPRN'
 	},
-	{ hospitalName: 'Bulombo Hospital', hospitalKey: 'BLMH', municipality: '' },
+	{
+		hospitalName: 'Bulombo Hospital',
+		hospitalKey: 'BLMH',
+		municipality: 'LNDE'
+	},
 	{
 		hospitalName: 'Mashashane Hospital',
 		hospitalKey: 'MSSH',
-		municipality: ''
+		municipality: 'WTRV'
 	},
 	{
 		hospitalName: 'dendron Health Centre',
 		hospitalKey: 'DNDH',
-		municipality: ''
+		municipality: 'CPRN'
 	}
 ];
 

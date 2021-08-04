@@ -16,15 +16,19 @@ const Doctor = sequelize.define('Doctor', {
 	email: { type: DataTypes.STRING, allowNull: false }
 });
 
+Doctor.belongsTo(Hospital);
+
+Doctor.belongsTo(Specialisation);
+
 Hospital.hasMany(Doctor, {
 	foreignKey: 'hospital',
 	onDelete: 'SET NULL',
 	onUpdate: 'CASCADE'
 });
-Doctor.belongsTo(Hospital);
 
 Specialisation.hasMany(Doctor, { foreignKey: 'specialty' });
-Doctor.belongsTo(Specialisation);
 
-await Doctor.sync({ force: true });
+(async () => {
+	await Doctor.sync({ force: true });
+})();
 module.exports = { Doctor };

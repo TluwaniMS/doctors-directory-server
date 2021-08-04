@@ -7,12 +7,15 @@ const Hospital = sequelize.define('Hospital', {
 	hospitalKey: { type: DataTypes.STRING, allowNull: false, primaryKey: true }
 });
 
+Hospital.belongsTo(Municipality);
+
 Municipality.hasMany(Hospital, {
 	foreignKey: 'municipality',
 	onDelete: 'SET NULL',
 	onUpdate: 'CASCADE'
 });
-Hospital.belongsTo(Municipality);
 
-await Hospital.sync({ force: true });
+(async () => {
+	await Hospital.sync({ force: true });
+})();
 module.exports = { Hospital };

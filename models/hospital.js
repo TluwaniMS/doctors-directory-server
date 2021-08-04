@@ -15,7 +15,4 @@ Municipality.hasMany(Hospital, {
 	onUpdate: 'CASCADE'
 });
 
-(async () => {
-	await Hospital.sync({ force: true });
-})();
 module.exports = { Hospital };

@@ -10,7 +10,4 @@ const Municipality = sequelize.define('Municipality', {
 	}
 });
 
-(async () => {
-	await Municipality.sync({ force: true });
-})();
 module.exports = { Municipality };

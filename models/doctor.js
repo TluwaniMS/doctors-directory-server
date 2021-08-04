@@ -28,7 +28,4 @@ Hospital.hasMany(Doctor, {
 
 Specialisation.hasMany(Doctor, { foreignKey: 'specialty' });
 
-(async () => {
-	await Doctor.sync({ force: true });
-})();
 module.exports = { Doctor };

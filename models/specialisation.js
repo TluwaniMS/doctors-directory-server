@@ -10,7 +10,4 @@ const Specialisation = sequelize.define('Specialisation', {
 	}
 });
 
-(async () => {
-	await Specialisation.sync({ force: true });
-})();
 module.exports = { Specialisation };

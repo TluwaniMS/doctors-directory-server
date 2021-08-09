@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { errorHandler } = require('../middleware/error-handler');
+const { Municipality } = require('../models/municipality');
 
 router.get(
 	'/get-municipalities',

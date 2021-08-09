@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { errorHandler } = require('../middleware/error-handler');
+const { Doctor } = require('../models/doctor');
 
 router.get(
 	'/get-all-doctors',

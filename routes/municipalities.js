@@ -4,16 +4,22 @@ const { errorHandler } = require('../middleware/error-handler');
 
 router.get(
 	'/get-municipalities',
-	errorHandler(async (req, res) => {})
+	errorHandler(async (req, res) => {
+		res.status(200).send({ data: '' });
+	})
 );
 
 router.get(
 	'/get-municipality/:municipalityId',
-	errorHandler(async (req, res) => {})
+	errorHandler(async (req, res) => {
+		res.status(200).send({ data: '' });
+	})
 );
 
 router.post(
 	'/update-municipality/:municipalityId',
-	errorHandler(async (req, res) => {})
+	errorHandler(async (req, res) => {
+		res.status(200).send({ status: 'successful' });
+	})
 );
 module.exports = router;

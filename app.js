@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
-const dotenv = require('dotenv');
 const morgan = require('morgan');
 const {
 	unknownRequests,
@@ -13,8 +12,6 @@ const authenticationsRoute = require('./routes/authentication');
 const specialitiesRoute = require('./routes/specialities');
 const municipalitiesRoute = require('./routes/municipalities');
 const app = express();
-
-dotenv.config();
 
 app.use(cors());
 app.use(helmet());

@@ -6,14 +6,22 @@ const { Municipality } = require('../models/municipality');
 router.get(
 	'/get-municipalities',
 	errorHandler(async (req, res) => {
-		res.status(200).send({ data: '' });
+		const municipalities = await Municipality.findAll({});
+
+		res.status(200).send({ data: municipalities });
 	})
 );
 
 router.get(
 	'/get-municipality/:municipalityId',
 	errorHandler(async (req, res) => {
-		res.status(200).send({ data: '' });
+		const { municipalityId } = req.params;
+
+		const municipality = await Municipality.findAll({
+			where: { municipalityKey: municipalityId }
+		});
+
+		res.status(200).send({ data: municipality });
 	})
 );
 

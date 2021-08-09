@@ -6,14 +6,22 @@ const { Hospital } = require('../models/hospital');
 router.get(
 	'/get-all-hospitals',
 	errorHandler(async (req, res) => {
-		res.status(200).send({ data: '' });
+		const hospitals = await Hospital.findAll({});
+
+		res.status(200).send({ data: hospitals });
 	})
 );
 
 router.get(
 	'/get-hospital/:hospitalId',
 	errorHandler(async (req, res) => {
-		res.status(200).send({ data: '' });
+		const { hospitalId } = req.params;
+
+		const hospital = await Hospital.findAll({
+			where: { hospitalKey: hospitalId }
+		});
+
+		res.status(200).send({ data: hospital });
 	})
 );
 

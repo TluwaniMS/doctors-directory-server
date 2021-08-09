@@ -6,14 +6,22 @@ const { Specialisation } = require('../models/specialisation');
 router.get(
 	'/get-all-specialties',
 	errorHandler(async (req, res) => {
-		res.status(200).send({ data: '' });
+		const specialties = await Specialisation.findAll({});
+
+		res.status(200).send({ data: specialties });
 	})
 );
 
 router.get(
 	'/get-specialty/:specialtyId',
 	errorHandler(async (req, res) => {
-		res.status(200).send({ data: '' });
+		const { specialtyId } = req.params;
+
+		const specialty = await Specialisation.findAll({
+			where: { specialisationKey: specialtyId }
+		});
+
+		res.status(200).send({ data: specialty });
 	})
 );
 

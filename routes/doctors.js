@@ -6,7 +6,16 @@ const { Doctor } = require('../models/doctor');
 router.get(
 	'/get-all-doctors',
 	errorHandler(async (req, res) => {
-		const doctors = await Doctor.findAll({});
+		const doctors = await Doctor.findAll({
+			attributes: [
+				'id',
+				'firstName',
+				'lastName',
+				'gender',
+				'hospital',
+				'specialty'
+			]
+		});
 
 		res.status(200).send({ data: doctors });
 	})
@@ -17,7 +26,18 @@ router.get(
 	errorHandler(async (req, res) => {
 		const { doctorId } = req.params;
 
-		const doctor = await Doctor.findAll({ where: { id: doctorId } });
+		const doctor = await Doctor.findAll({
+			where: { id: doctorId },
+			attributes: [
+				'id',
+				'firstName',
+				'lastName',
+				'gender',
+				'hospital',
+				'specialty',
+				'email'
+			]
+		});
 
 		res.status(200).send({ data: doctor });
 	})
@@ -35,7 +55,10 @@ router.get(
 	errorHandler(async (req, res) => {
 		const { gender } = req.params;
 
-		const doctors = await Doctor.findAll({ where: { gender: gender } });
+		const doctors = await Doctor.findAll({
+			where: { gender: gender },
+			attributes: ['id', 'firstName', 'lastName', 'hospital', 'specialty']
+		});
 
 		res.status(200).send({ data: doctors });
 	})
@@ -47,7 +70,8 @@ router.get(
 		const { specialtyKey } = req.params;
 
 		const doctors = await Doctor.findAll({
-			where: { specialty: specialtyKey }
+			where: { specialty: specialtyKey },
+			attributes: ['id', 'firstName', 'lastName', 'gender', 'hospital']
 		});
 
 		res.status(200).send({ data: doctors });
@@ -60,7 +84,15 @@ router.get(
 		const { hospitalKey } = req.params;
 
 		const doctors = await Doctor.findAll({
-			where: { hospital: hospitalKey }
+			where: { hospital: hospitalKey },
+			attributes: [
+				'id',
+				'firstName',
+				'lastName',
+				'gender',
+				'specialty',
+				'email'
+			]
 		});
 
 		res.status(200).send({ data: doctors });

@@ -31,4 +31,14 @@ router.put(
 		res.status(200).send({ status: 'successful' });
 	})
 );
+
+router.get(
+	'/get-hospitals-by-municipality/:municipalityKey',
+	errorHandler(async (req, res) => {
+		const { municipalityKey } = req.params;
+		const hospitals = await Hospital.findAll({});
+
+		res.status(200).send({ data: hospitals });
+	})
+);
 module.exports = router;

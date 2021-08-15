@@ -36,7 +36,10 @@ router.get(
 	'/get-hospitals-by-municipality/:municipalityKey',
 	errorHandler(async (req, res) => {
 		const { municipalityKey } = req.params;
-		const hospitals = await Hospital.findAll({});
+
+		const hospitals = await Hospital.findAll({
+			where: { municipality: municipalityKey }
+		});
 
 		res.status(200).send({ data: hospitals });
 	})

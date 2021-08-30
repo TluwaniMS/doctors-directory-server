@@ -46,6 +46,19 @@ router.get(
 router.put(
 	'/update-doctor/:doctorId',
 	errorHandler(async (req, res) => {
+		const { doctorId } = req.params;
+		const { firstName, lastName, gender, email } = req.body;
+
+		await Doctor.update(
+			{
+				firstName: firstName,
+				lastName: lastName,
+				gender: gender,
+				email: email
+			},
+			{ where: { id: doctorId } }
+		);
+
 		res.status(200).send({ status: 'successful' });
 	})
 );

@@ -28,6 +28,14 @@ router.get(
 router.post(
 	'/update-municipality/:municipalityId',
 	errorHandler(async (req, res) => {
+		const { municipalityId } = req.params;
+		const { municipalityName } = req.body;
+
+		await Municipality.update(
+			{ municipalityName: municipalityName },
+			{ where: { municipalityKey: municipalityId } }
+		);
+
 		res.status(200).send({ status: 'successful' });
 	})
 );

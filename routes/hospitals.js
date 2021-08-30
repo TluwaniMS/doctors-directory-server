@@ -28,6 +28,14 @@ router.get(
 router.put(
 	'/update-hospital/:hospitalId',
 	errorHandler(async (req, res) => {
+		const { hospitalId } = req.params;
+		const { hospitalName, municipality } = req.body;
+
+		await Hospital.update(
+			{ hospitalName: hospitalName, municipality: municipality },
+			{ where: { hospitalKey: hospitalId } }
+		);
+
 		res.status(200).send({ status: 'successful' });
 	})
 );

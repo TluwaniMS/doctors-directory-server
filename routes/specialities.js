@@ -28,7 +28,16 @@ router.get(
 router.put(
 	'/update-specialty/:specialtyId',
 	errorHandler(async (req, res) => {
+		const { specialtyId } = req.params;
+		const { specialisationName } = req.body;
+
+		await Specialisation.update(
+			{ specialisationName: specialisationName },
+			{ where: { specialisationKey: specialtyId } }
+		);
+
 		res.status(200).send({ status: 'successful' });
 	})
 );
+
 module.exports = router;

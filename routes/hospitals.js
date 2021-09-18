@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const { errorHandler } = require('../middleware/error-handler');
+const { getAllHospitals } = require('../services/hospitals-service');
 const { Hospital } = require('../models/hospital');
 
 router.get(
 	'/get-all-hospitals',
 	errorHandler(async (req, res) => {
-		const hospitals = await Hospital.findAll({});
+		const hospitals = await getAllHospitals();
 
 		res.status(200).send({ data: hospitals });
 	})

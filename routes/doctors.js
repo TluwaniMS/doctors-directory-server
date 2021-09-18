@@ -1,21 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const { errorHandler } = require('../middleware/error-handler');
+const { getAllDoctors } = require('../database-services/doctors-service');
 const { Doctor } = require('../models/doctor');
 
 router.get(
 	'/get-all-doctors',
 	errorHandler(async (req, res) => {
-		const doctors = await Doctor.findAll({
-			attributes: [
-				'id',
-				'firstName',
-				'lastName',
-				'gender',
-				'hospital',
-				'specialty'
-			]
-		});
+		const doctors = await getAllDoctors();
 
 		res.status(200).send({ data: doctors });
 	})

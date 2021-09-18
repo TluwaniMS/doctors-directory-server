@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const { errorHandler } = require('../middleware/error-handler');
+const {
+	getAllMunicipalities
+} = require('../database-services/municipalities-service');
 const { Municipality } = require('../models/municipality');
 
 router.get(
 	'/get-municipalities',
 	errorHandler(async (req, res) => {
-		const municipalities = await Municipality.findAll({});
+		const municipalities = await getAllMunicipalities();
 
 		res.status(200).send({ data: municipalities });
 	})

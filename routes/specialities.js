@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const { errorHandler } = require('../middleware/error-handler');
+const {
+	getAllSpecialties
+} = require('../database-services/specialties-service');
 const { Specialisation } = require('../models/specialisation');
 
 router.get(
 	'/get-all-specialties',
 	errorHandler(async (req, res) => {
-		const specialties = await Specialisation.findAll({});
+		const specialties = await getAllSpecialties();
 
 		res.status(200).send({ data: specialties });
 	})

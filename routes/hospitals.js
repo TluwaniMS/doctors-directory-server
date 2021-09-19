@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { errorHandler } = require('../middleware/error-handler');
-const { getAllHospitals } = require('../services/hospitals-service');
+const { getAllHospitals } = require('../database-services/hospitals-service');
 const { Hospital } = require('../models/hospital');
 
 router.get(

@@ -4,14 +4,21 @@ const { errorHandler } = require('../middleware/error-handler');
 const {
 	getAllMunicipalities
 } = require('../database-services/municipalities-service');
+const {
+	calculateBasicDirectoryStatsForMunicipalView
+} = require('../auxiliary-services/shared-services');
 const { Municipality } = require('../models/municipality');
 
 router.get(
 	'/get-municipalities',
 	errorHandler(async (req, res) => {
 		const municipalities = await getAllMunicipalities();
+		const basicStats = await calculateBasicDirectoryStatsForMunicipalView();
 
-		res.status(200).send({ data: municipalities });
+		res.status(200).send({
+			municipalities: municipalities,
+			basicStats: basicStats
+		});
 	})
 );
 

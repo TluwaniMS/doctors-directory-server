@@ -1,4 +1,4 @@
-const { createPasswordHash } = require('../services/hashing-service');
+const { createPasswordHash } = require('../auxiliary-services/hashing-service');
 
 function hashDoctorsPasswords(doctors) {
 	doctors.forEach((doctor) => {

@@ -35,4 +35,29 @@ function structureBasicDirectoryStats(
 
 	return basicStats;
 }
-module.exports = { calculateBasicDirectoryStatsForMunicipalView };
+
+function getBasicStatsForSingleMunicipality(hospitals, doctors) {
+	const totalDoctors = doctors.length;
+	const totalHospitals = hospitals.length;
+
+	const basicStats = structureBasicStatsForMunicipality(
+		totalDoctors,
+		totalHospitals
+	);
+
+	return basicStats;
+}
+
+function structureBasicStatsForMunicipality(totalDoctors, totalHospitals) {
+	const basicStats = {
+		totalDoctors,
+		totalHospitals
+	};
+
+	return basicStats;
+}
+
+module.exports = {
+	calculateBasicDirectoryStatsForMunicipalView,
+	getBasicStatsForSingleMunicipality
+};

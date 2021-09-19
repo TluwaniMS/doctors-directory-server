@@ -1,7 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const { errorHandler } = require('../middleware/error-handler');
-const { getAllHospitals } = require('../database-services/hospitals-service');
+const {
+	getAllHospitals,
+	getHospitalsByMunicipality
+} = require('../database-services/hospitals-service');
+const {
+	extractHospitalKeys
+} = require('../auxiliary-services/hospitals-services');
+const {
+	findDoctorsFromHospitalKeysArray
+} = require('../database-services/doctors-service');
+const {
+	getBasicStatsForSingleMunicipality
+} = require('../auxiliary-services/shared-services');
 const { Hospital } = require('../models/hospital');
 
 router.get(
@@ -46,11 +58,15 @@ router.get(
 	errorHandler(async (req, res) => {
 		const { municipalityKey } = req.params;
 
-		const hospitals = await Hospital.findAll({
-			where: { municipality: municipalityKey }
-		});
+		const hospitals = await getHospitalsByMunicipality(municipalityKey);
+		const hospitalKeys = extractHospitalKeys(hospitals);
+		const doctors = await findDoctorsFromHospitalKeysArray(hospitalKeys);
+		const basicStats = getBasicStatsForSingleMunicipality(
+			hospitals,
+			doctors
+		);
 
-		res.status(200).send({ data: hospitals });
+		res.status(200).send({ hospitals: hospitals, basicStats: basicStats });
 	})
 );
 module.exports = router;

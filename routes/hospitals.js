@@ -6,7 +6,8 @@ const {
 	getHospitalsByMunicipality
 } = require('../database-services/hospitals-service');
 const {
-	extractHospitalKeys
+	extractHospitalKeys,
+	formatBasicStatsForHospitalsOnMunicipalView
 } = require('../auxiliary-services/hospitals-services');
 const {
 	findDoctorsFromHospitalKeysArray
@@ -66,7 +67,13 @@ router.get(
 			doctors
 		);
 
-		res.status(200).send({ hospitals: hospitals, basicStats: basicStats });
+		const hospitalsWithBasicStats =
+			formatBasicStatsForHospitalsOnMunicipalView(hospitals, doctors);
+
+		res.status(200).send({
+			hospitals: hospitalsWithBasicStats,
+			basicStats: basicStats
+		});
 	})
 );
 module.exports = router;

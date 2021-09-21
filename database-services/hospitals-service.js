@@ -8,7 +8,8 @@ async function getAllHospitals() {
 
 async function getHospitalsByMunicipality(municipalKey) {
 	const hospitals = await Hospital.findAll({
-		where: { municipality: municipalKey }
+		where: { municipality: municipalKey },
+		raw: true
 	});
 
 	return hospitals;

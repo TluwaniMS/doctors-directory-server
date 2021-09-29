@@ -11,6 +11,7 @@ const hospitalsRoute = require('./routes/hospitals');
 const authenticationsRoute = require('./routes/authentication');
 const specialitiesRoute = require('./routes/specialities');
 const municipalitiesRoute = require('./routes/municipalities');
+const directoryStatisticsRoute = require('./routes/directory-statistics');
 const app = express();
 
 app.use(cors());
@@ -25,6 +26,7 @@ app.use('/api/hospitals', hospitalsRoute);
 app.use('/api/authentications', authenticationsRoute);
 app.use('/api/specialties', specialitiesRoute);
 app.use('/api/municipalities', municipalitiesRoute);
+app.use('/api/directory-statistics', directoryStatisticsRoute);
 
 app.use(unknownRequests);
 app.use(errorResponse);

@@ -26,7 +26,24 @@ async function getDoctorsStatsGroupedByGenderAndSpecialty() {
 	return doctorsGroupedByGenderCount;
 }
 
+async function getDoctorsStatsByHospitalKeyGroupedByGenderAndSpecialty(
+	hospitalKey
+) {
+	const doctorsGroupedByGenderCount = await Doctor.findAll({
+		where: { hospital: hospitalKey },
+		attributes: [
+			'gender',
+			'specialty',
+			[sequelize.fn('COUNT', sequelize.col('gender')), 'n_gender']
+		],
+		group: ['gender', 'specialty']
+	});
+
+	return doctorsGroupedByGenderCount;
+}
+
 module.exports = {
 	getDoctorsStatsGroupedByGender,
-	getDoctorsStatsGroupedByGenderAndSpecialty
+	getDoctorsStatsGroupedByGenderAndSpecialty,
+	getDoctorsStatsByHospitalKeyGroupedByGenderAndSpecialty
 };

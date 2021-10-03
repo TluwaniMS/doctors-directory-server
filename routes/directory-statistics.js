@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const {
 	getDoctorsStatsGroupedByGender,
-	getDoctorsStatsGroupedByGenderAndSpecialty
+	getDoctorsStatsGroupedByGenderAndSpecialty,
+	getDoctorsStatsByHospitalKeyGroupedByGenderAndSpecialty
 } = require('../database-services/doctors-stats-service');
 const { errorHandler } = require('../middleware/error-handler');
 
@@ -21,6 +22,19 @@ router.get(
 	errorHandler(async (req, res) => {
 		const doctorsGroupedByGenderAndSpecialtyCount =
 			await getDoctorsStatsGroupedByGenderAndSpecialty();
+
+		res.status(200).send({ data: doctorsGroupedByGenderAndSpecialtyCount });
+	})
+);
+
+router.get(
+	'/get-doctors-by-hospital-key-grouped-by-gender-and-specialty/:hospitalKey',
+	errorHandler(async (req, res) => {
+		const { hospitalKey } = req.params;
+		const doctorsGroupedByGenderAndSpecialtyCount =
+			await getDoctorsStatsByHospitalKeyGroupedByGenderAndSpecialty(
+				hospitalKey
+			);
 
 		res.status(200).send({ data: doctorsGroupedByGenderAndSpecialtyCount });
 	})

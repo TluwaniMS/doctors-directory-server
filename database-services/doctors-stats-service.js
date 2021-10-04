@@ -1,7 +1,7 @@
 const { Doctor } = require('../models/doctor');
 const { sequelize } = require('../database-config');
 
-async function getDoctorsStatsGroupedByGender() {
+async function getTotalDoctorsStatsGroupedByGender() {
 	const doctorsGroupedByGenderCount = await Doctor.findAll({
 		attributes: [
 			'gender',
@@ -13,37 +13,6 @@ async function getDoctorsStatsGroupedByGender() {
 	return doctorsGroupedByGenderCount;
 }
 
-async function getDoctorsStatsGroupedByGenderAndSpecialty() {
-	const doctorsGroupedByGenderCount = await Doctor.findAll({
-		attributes: [
-			'gender',
-			'specialty',
-			[sequelize.fn('COUNT', sequelize.col('gender')), 'n_gender']
-		],
-		group: ['gender', 'specialty']
-	});
-
-	return doctorsGroupedByGenderCount;
-}
-
-async function getDoctorsStatsByHospitalKeyGroupedByGenderAndSpecialty(
-	hospitalKey
-) {
-	const doctorsGroupedByGenderCount = await Doctor.findAll({
-		where: { hospital: hospitalKey },
-		attributes: [
-			'gender',
-			'specialty',
-			[sequelize.fn('COUNT', sequelize.col('gender')), 'n_gender']
-		],
-		group: ['gender', 'specialty']
-	});
-
-	return doctorsGroupedByGenderCount;
-}
-
 module.exports = {
-	getDoctorsStatsGroupedByGender,
-	getDoctorsStatsGroupedByGenderAndSpecialty,
-	getDoctorsStatsByHospitalKeyGroupedByGenderAndSpecialty
+	getTotalDoctorsStatsGroupedByGender
 };

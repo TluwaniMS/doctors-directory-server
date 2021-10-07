@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const { errorHandler } = require('../middleware/error-handler');
+const {
+	getMunicipalitiesWithGenderCountStats
+} = require('../database-services/municpality-stats-service');
 
 router.get(
 	'/get-stats-count-by-municipality-grouped-by-hospital',
@@ -19,7 +22,8 @@ router.get(
 router.get(
 	'/get-stats-count-by-municipality-grouped-by-gender',
 	errorHandler(async (req, res) => {
-		res.status(200).send({ data: '' });
+		const genderCount = await getMunicipalitiesWithGenderCountStats();
+		res.status(200).send({ data: genderCount });
 	})
 );
 

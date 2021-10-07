@@ -1,5 +1,6 @@
 const { Municipality } = require('../models/municipality');
 const { Hospital } = require('../models/hospital');
+const { Doctor } = require('../models/doctor');
 const { sequelize } = require('../database-config');
 
 async function getMunicipalitiesWithGenderCountStats() {
@@ -8,11 +9,19 @@ async function getMunicipalitiesWithGenderCountStats() {
 		include: [
 			{
 				model: Hospital,
-				attributes: ['hospitalName']
+				attributes: ['hospitalName'],
+				include: [
+					{
+						model: Doctor,
+						attributes: ['gender']
+					}
+				]
 			}
 		]
 	});
 
 	return genderCountGroupedByMunicipality;
 }
+
+
 module.exports = { getMunicipalitiesWithGenderCountStats };

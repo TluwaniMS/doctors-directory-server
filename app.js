@@ -14,6 +14,7 @@ const municipalitiesRoute = require('./routes/municipalities');
 const directoryStatisticsRoute = require('./routes/directory-statistics');
 const specialtiesStatisticsRoute = require('./routes/specialty-statistics');
 const hospitalStatisticsRoute = require('./routes/hospital-statistics');
+const municipalityStatisticsRoute = require('./routes/municipality-statistics');
 const app = express();
 
 app.use(cors());
@@ -31,6 +32,7 @@ app.use('/api/municipalities', municipalitiesRoute);
 app.use('/api/directory-statistics', directoryStatisticsRoute);
 app.use('/api/specialty-statistics', specialtiesStatisticsRoute);
 app.use('/api/hospital-statistics', hospitalStatisticsRoute);
+app.use('/api/municipality-statistics', municipalityStatisticsRoute);
 
 app.use(unknownRequests);
 app.use(errorResponse);

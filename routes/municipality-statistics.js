@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { errorHandler } = require('../middleware/error-handler');
 
 router.get(
 	'/get-stats-count-by-municipality-grouped-by-hospital',

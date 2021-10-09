@@ -8,6 +8,9 @@ const {
 	getMunicipalitiesNestedWithHospitals,
 	getMunicipalitiesWithHospitalsAndNestedDoctors
 } = require('../database-services/municpality-stats-service');
+const {
+	calculateMunicipalityHospitalCount
+} = require('../auxiliary-services/municipality-stats-service');
 
 router.get(
 	'/get-gender-count-of-municipalities-doctors',
@@ -54,10 +57,13 @@ router.get(
 router.get(
 	'/get-total-hospital-count-of-municipalities',
 	errorHandler(async (req, res) => {
-		const municipalitiesHospitalCount =
+		const municipalitiesWithHospitals =
 			await getMunicipalitiesNestedWithHospitals();
 
-		res.status(200).send({ data: municipalitiesHospitalCount });
+		const municipalitiesWithHospitalCount =
+			calculateMunicipalityHospitalCount(municipalitiesWithHospitals);
+
+		res.status(200).send({ data: municipalitiesWithHospitalCount });
 	})
 );
 

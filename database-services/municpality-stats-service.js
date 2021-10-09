@@ -84,7 +84,6 @@ async function getMunicipalitiesNestedWithHospitals() {
 		nest: true
 	});
 
-	console.log(municipalitiesNestedWithHospitals);
 	return municipalitiesNestedWithHospitals;
 }
 

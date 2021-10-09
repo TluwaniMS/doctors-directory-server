@@ -61,6 +61,52 @@ function calculateMunicipalityDoctorsCount(
 	return municipalitiesWithDoctorsCount;
 }
 
+function calculateMunicipalityGenderCount(
+	municipalitiesWithHospitalsAndNestedDoctors
+) {
+	const municipalitiesWithDoctorsGenderCount = [];
+
+	const municipalityNames = extractMunicipalityNames(
+		municipalitiesWithHospitalsAndNestedDoctors
+	);
+
+	municipalityNames.forEach((municipality) => {
+		const hospitalsLinkedToMunicipality =
+			extractContentLinkedToMunicipality(
+				municipalitiesWithHospitalsAndNestedDoctors,
+				municipality,
+				DirectoryModelProperties.Hospitals
+			);
+
+		const doctorsLinkedToHospitals = extractDoctorsLinkedToHospitals(
+			hospitalsLinkedToMunicipality
+		);
+
+		const maleDoctors = extractDoctorsByGender(
+			doctorsLinkedToHospitals,
+			DirectoryModelProperties.DoctorsProperties.Gender.Male
+		);
+
+		const femaleDoctors = extractDoctorsByGender(
+			doctorsLinkedToHospitals,
+			DirectoryModelProperties.DoctorsProperties.Gender.Female
+		);
+
+		const totalMaleDoctors = maleDoctors.length;
+		const totalFemaleDoctors = femaleDoctors.length;
+
+		const preparedMunicipality = {
+			municipalityName: municipality,
+			totalMaleDoctors: totalMaleDoctors,
+			totalFemaleDoctors: totalFemaleDoctors
+		};
+
+		municipalitiesWithDoctorsGenderCount.push(preparedMunicipality);
+	});
+
+	return municipalitiesWithDoctorsGenderCount;
+}
+
 function extractMunicipalityNames(municipalitiesWithHospitals) {
 	const municipalityNames = municipalitiesWithHospitals.map(
 		(municipality) => municipality.municipalityName
@@ -94,7 +140,15 @@ function extractDoctorsLinkedToHospitals(hospitalsWithDoctors) {
 	return doctors;
 }
 
+function extractDoctorsByGender(doctors, gender) {
+	const doctorsOfASpecificGender = doctors.filter(
+		(doctor) => doctor.gender === gender
+	);
+
+	return doctorsOfASpecificGender;
+}
 module.exports = {
 	calculateMunicipalityHospitalCount,
-	calculateMunicipalityDoctorsCount
+	calculateMunicipalityDoctorsCount,
+	calculateMunicipalityGenderCount
 };

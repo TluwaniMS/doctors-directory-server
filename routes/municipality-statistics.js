@@ -10,7 +10,8 @@ const {
 } = require('../database-services/municpality-stats-service');
 const {
 	calculateMunicipalityHospitalCount,
-	calculateMunicipalityDoctorsCount
+	calculateMunicipalityDoctorsCount,
+	calculateMunicipalityGenderCount
 } = require('../auxiliary-services/municipality-stats-service');
 
 router.get(
@@ -19,7 +20,11 @@ router.get(
 		const municipalitiesGenderCount =
 			await getMunicipalitiesWithHospitalsAndNestedDoctorGenders();
 
-		res.status(200).send({ data: municipalitiesGenderCount });
+		const municipalitiesWithGenderCount = calculateMunicipalityGenderCount(
+			municipalitiesGenderCount
+		);
+
+		res.status(200).send({ data: municipalitiesWithGenderCount });
 	})
 );
 

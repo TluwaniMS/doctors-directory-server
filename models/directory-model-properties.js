@@ -1,3 +1,4 @@
 module.exports = {
-	Hospitals: 'Hospitals'
+	Hospitals: 'Hospitals',
+	Doctors: 'Doctors'
 };

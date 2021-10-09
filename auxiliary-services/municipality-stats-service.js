@@ -27,6 +27,40 @@ function calculateMunicipalityHospitalCount(municipalitiesWithHospitals) {
 	return municipalitiesWithHospitalCount;
 }
 
+function calculateMunicipalityDoctorsCount(
+	municipalitiesWithHospitalsAndNestedDoctors
+) {
+	const municipalitiesWithDoctorsCount = [];
+
+	const municipalityNames = extractMunicipalityNames(
+		municipalitiesWithHospitalsAndNestedDoctors
+	);
+
+	municipalityNames.forEach((municipality) => {
+		const hospitalsLinkedToMunicipality =
+			extractContentLinkedToMunicipality(
+				municipalitiesWithHospitalsAndNestedDoctors,
+				municipality,
+				DirectoryModelProperties.Hospitals
+			);
+
+		const doctorsLinkedToHospitals = extractDoctorsLinkedToHospitals(
+			hospitalsLinkedToMunicipality
+		);
+
+		const totalDoctors = doctorsLinkedToHospitals.length;
+
+		const preparedMunicipality = {
+			municipalityName: municipality,
+			totalDoctors: totalDoctors
+		};
+
+		municipalitiesWithDoctorsCount.push(preparedMunicipality);
+	});
+
+	return municipalitiesWithDoctorsCount;
+}
+
 function extractMunicipalityNames(municipalitiesWithHospitals) {
 	const municipalityNames = municipalitiesWithHospitals.map(
 		(municipality) => municipality.municipalityName
@@ -52,4 +86,15 @@ function extractContentLinkedToMunicipality(
 	return content;
 }
 
-module.exports = { calculateMunicipalityHospitalCount };
+function extractDoctorsLinkedToHospitals(hospitalsWithDoctors) {
+	const doctors = hospitalsWithDoctors.map(
+		(hospital) => hospital[DirectoryModelProperties.Doctors]
+	);
+
+	return doctors;
+}
+
+module.exports = {
+	calculateMunicipalityHospitalCount,
+	calculateMunicipalityDoctorsCount
+};

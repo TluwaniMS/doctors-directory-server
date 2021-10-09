@@ -1,7 +1,6 @@
 const { Municipality } = require('../models/municipality');
 const { Hospital } = require('../models/hospital');
 const { Doctor } = require('../models/doctor');
-const { sequelize } = require('../database-config');
 
 async function getMunicipalitiesWithHospitalsAndNestedDoctorGenders() {
 	const municipalitiesWithHospitalsAndNestedDoctorGenders =
@@ -18,7 +17,9 @@ async function getMunicipalitiesWithHospitalsAndNestedDoctorGenders() {
 						}
 					]
 				}
-			]
+			],
+			raw: true,
+			nest: true
 		});
 
 	return municipalitiesWithHospitalsAndNestedDoctorGenders;
@@ -39,7 +40,9 @@ async function getMunicipalitiesWithHospitalsAndNestedDoctorSpecialties() {
 						}
 					]
 				}
-			]
+			],
+			raw: true,
+			nest: true
 		});
 
 	return municipalitiesWithHospitalsAndNestedDoctorSpecialties;
@@ -60,7 +63,9 @@ async function getMunicipalitiesWithHospitalsAndNestedDoctorSpecialtiesAndGender
 						}
 					]
 				}
-			]
+			],
+			raw: true,
+			nest: true
 		});
 
 	return municipalitiesWithHospitalsAndNestedDoctorSpecialtiesAndGender;
@@ -74,9 +79,12 @@ async function getMunicipalitiesNestedWithHospitals() {
 				model: Hospital,
 				attributes: ['hospitalName']
 			}
-		]
+		],
+		raw: true,
+		nest: true
 	});
 
+	console.log(municipalitiesNestedWithHospitals);
 	return municipalitiesNestedWithHospitals;
 }
 
@@ -94,7 +102,9 @@ async function getMunicipalitiesWithHospitalsAndNestedDoctors() {
 						}
 					]
 				}
-			]
+			],
+			raw: true,
+			nest: true
 		});
 
 	return municipalitiesWithHospitalsAndNestedDoctors;

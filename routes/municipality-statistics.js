@@ -11,7 +11,8 @@ const {
 const {
 	calculateMunicipalityHospitalCount,
 	calculateMunicipalityDoctorsCount,
-	calculateMunicipalityGenderCount
+	calculateMunicipalityGenderCount,
+	calculateMunicipalitySpecialityCount
 } = require('../auxiliary-services/municipality-stats-service');
 
 router.get(
@@ -34,7 +35,12 @@ router.get(
 		const municipalityDoctorsSpecialtyCount =
 			await getMunicipalitiesWithHospitalsAndNestedDoctorSpecialties();
 
-		res.status(200).send({ data: municipalityDoctorsSpecialtyCount });
+		const municipalityWithTotalSpecialtyCount =
+			calculateMunicipalitySpecialityCount(
+				municipalityDoctorsSpecialtyCount
+			);
+
+		res.status(200).send({ data: municipalityWithTotalSpecialtyCount });
 	})
 );
 

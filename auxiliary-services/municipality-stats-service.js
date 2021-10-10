@@ -1,4 +1,5 @@
-const DirectoryModelProperties = require('../models/directory-model-properties');
+const MainDirectoryModelProperties = require('../model-properties/main-model-properties');
+const DoctorsModelProperties = require('../model-properties/doctors-model-properties');
 
 function calculateMunicipalityHospitalCount(municipalitiesWithHospitals) {
 	const municipalitiesWithHospitalCount = [];
@@ -12,7 +13,7 @@ function calculateMunicipalityHospitalCount(municipalitiesWithHospitals) {
 			extractContentLinkedToMunicipality(
 				municipalitiesWithHospitals,
 				municipality,
-				DirectoryModelProperties.Hospitals
+				MainDirectoryModelProperties.Hospitals
 			);
 		const totalHospitals = hospitalsLinkedToMunicipality.length;
 
@@ -41,7 +42,7 @@ function calculateMunicipalityDoctorsCount(
 			extractContentLinkedToMunicipality(
 				municipalitiesWithHospitalsAndNestedDoctors,
 				municipality,
-				DirectoryModelProperties.Hospitals
+				MainDirectoryModelProperties.Hospitals
 			);
 
 		const doctorsLinkedToHospitals = extractDoctorsLinkedToHospitals(
@@ -75,7 +76,7 @@ function calculateMunicipalityGenderCount(
 			extractContentLinkedToMunicipality(
 				municipalitiesWithHospitalsAndNestedDoctors,
 				municipality,
-				DirectoryModelProperties.Hospitals
+				MainDirectoryModelProperties.Hospitals
 			);
 
 		const doctorsLinkedToHospitals = extractDoctorsLinkedToHospitals(
@@ -84,12 +85,12 @@ function calculateMunicipalityGenderCount(
 
 		const maleDoctors = extractDoctorsByGender(
 			doctorsLinkedToHospitals,
-			DirectoryModelProperties.DoctorsProperties.Gender.Male
+			DoctorsModelProperties.Gender.Male
 		);
 
 		const femaleDoctors = extractDoctorsByGender(
 			doctorsLinkedToHospitals,
-			DirectoryModelProperties.DoctorsProperties.Gender.Female
+			DoctorsModelProperties.Gender.Female
 		);
 
 		const totalMaleDoctors = maleDoctors.length;
@@ -134,7 +135,7 @@ function extractContentLinkedToMunicipality(
 
 function extractDoctorsLinkedToHospitals(hospitalsWithDoctors) {
 	const doctors = hospitalsWithDoctors.map(
-		(hospital) => hospital[DirectoryModelProperties.Doctors]
+		(hospital) => hospital[MainDirectoryModelProperties.Doctors]
 	);
 
 	return doctors;

@@ -31,8 +31,21 @@ async function getTotalOfMunicipalitiesInDirectory() {
 	return totalMunicipalities;
 }
 
+async function getTotalOfDoctorsGroupedBySpecialty() {
+	const specialtyCount = await Doctor.findAll({
+		attributes: [
+			'specialty',
+			[sequelize.fn('COUNT', sequelize.col('specialty')), 'total']
+		],
+		group: ['specialty']
+	});
+
+	return specialtyCount;
+}
+
 module.exports = {
 	getTotalOfDoctorsInDirectory,
 	getTotalOfHospitalsInDirectory,
-	getTotalOfMunicipalitiesInDirectory
+	getTotalOfMunicipalitiesInDirectory,
+	getTotalOfDoctorsGroupedBySpecialty
 };

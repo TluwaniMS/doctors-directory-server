@@ -4,7 +4,8 @@ const { errorHandler } = require('../middleware/error-handler');
 const {
 	getTotalOfDoctorsInDirectory,
 	getTotalOfHospitalsInDirectory,
-	getTotalOfMunicipalitiesInDirectory
+	getTotalOfMunicipalitiesInDirectory,
+	getTotalOfDoctorsGroupedBySpecialty
 } = require('../database-services/main-directory-stats-service');
 
 router.get(
@@ -13,8 +14,10 @@ router.get(
 		const totalOfDoctors = await getTotalOfDoctorsInDirectory();
 		const totalHospitals = await getTotalOfHospitalsInDirectory();
 		const totalMunicipalities = await getTotalOfMunicipalitiesInDirectory();
+		const totalDoctorsGroupedInSpecialties =
+			await getTotalOfDoctorsGroupedBySpecialty();
 
-		await res.status(200).send({ data: totalMunicipalities });
+		await res.status(200).send({ data: totalDoctorsGroupedInSpecialties });
 	})
 );
 

@@ -1,5 +1,6 @@
 const { Doctor } = require('../models/doctor');
 const { Hospital } = require('../models/hospital');
+const { Municipality } = require('../models/municipality');
 const { sequelize } = require('../database-config');
 
 async function getTotalOfDoctorsInDirectory() {
@@ -20,7 +21,18 @@ async function getTotalOfHospitalsInDirectory() {
 	return totalHospitals;
 }
 
+async function getTotalOfMunicipalitiesInDirectory() {
+	const totalMunicipalities = await Municipality.findAll({
+		attributes: [
+			[sequelize.fn('COUNT', sequelize.col('municipalityKey')), 'total']
+		]
+	});
+
+	return totalMunicipalities;
+}
+
 module.exports = {
 	getTotalOfDoctorsInDirectory,
-	getTotalOfHospitalsInDirectory
+	getTotalOfHospitalsInDirectory,
+	getTotalOfMunicipalitiesInDirectory
 };

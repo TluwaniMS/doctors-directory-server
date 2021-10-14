@@ -10,6 +10,20 @@ const {
 const {
 	addSpecialtyNamesToSpecialties
 } = require('../auxiliary-services/main-directory-stats-service');
+const {
+	calculateMunicipalityHospitalCount,
+	calculateMunicipalityDoctorsCount,
+	calculateMunicipalityGenderCount,
+	calculateMunicipalitySpecialityCount,
+	calculateMunicipalitySpecialitiesGroupedByGenderCount
+} = require('../auxiliary-services/municipality-stats-service');
+const {
+	getMunicipalitiesWithHospitalsAndNestedDoctorGenders,
+	getMunicipalitiesWithHospitalsAndNestedDoctorSpecialties,
+	getMunicipalitiesWithHospitalsAndNestedDoctorSpecialtiesAndGender,
+	getMunicipalitiesNestedWithHospitals,
+	getMunicipalitiesWithHospitalsAndNestedDoctors
+} = require('../database-services/municpality-stats-service');
 
 router.get(
 	'/get-total-doctors-in-directory',
@@ -17,14 +31,18 @@ router.get(
 		const totalOfDoctors = await getTotalOfDoctorsInDirectory();
 		const totalHospitals = await getTotalOfHospitalsInDirectory();
 		const totalMunicipalities = await getTotalOfMunicipalitiesInDirectory();
+
 		const totalDoctorsGroupedInSpecialties =
 			await getTotalOfDoctorsGroupedBySpecialty();
 		const doctorsGroupedInSpecialtiesWithSpecialtyNames =
 			addSpecialtyNamesToSpecialties(totalDoctorsGroupedInSpecialties);
 
-		await res
-			.status(200)
-			.send({ data: doctorsGroupedInSpecialtiesWithSpecialtyNames });
+		const municipalitiesWithHospitals =
+			await getMunicipalitiesNestedWithHospitals();
+		const municipalitiesWithHospitalCount =
+			calculateMunicipalityHospitalCount(municipalitiesWithHospitals);
+
+		await res.status(200).send({ data: municipalitiesWithHospitalCount });
 	})
 );
 

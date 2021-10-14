@@ -5,32 +5,29 @@ const {
 	getTotalOfDoctorsInDirectory,
 	getTotalOfHospitalsInDirectory,
 	getTotalOfMunicipalitiesInDirectory,
-	getTotalOfDoctorsGroupedBySpecialty
+	getTotalOfDoctorsGroupedBySpecialty,
+	getTotalDoctorsGroupedByGender
 } = require('../database-services/main-directory-stats-service');
 const {
 	addSpecialtyNamesToSpecialties
 } = require('../auxiliary-services/main-directory-stats-service');
 const {
 	calculateMunicipalityHospitalCount,
-	calculateMunicipalityDoctorsCount,
-	calculateMunicipalityGenderCount,
-	calculateMunicipalitySpecialityCount,
-	calculateMunicipalitySpecialitiesGroupedByGenderCount
+	calculateMunicipalityGenderCount
 } = require('../auxiliary-services/municipality-stats-service');
 const {
 	getMunicipalitiesWithHospitalsAndNestedDoctorGenders,
-	getMunicipalitiesWithHospitalsAndNestedDoctorSpecialties,
-	getMunicipalitiesWithHospitalsAndNestedDoctorSpecialtiesAndGender,
-	getMunicipalitiesNestedWithHospitals,
-	getMunicipalitiesWithHospitalsAndNestedDoctors
+	getMunicipalitiesNestedWithHospitals
 } = require('../database-services/municpality-stats-service');
 
 router.get(
-	'/get-total-doctors-in-directory',
+	'/main-directory-statistics',
 	errorHandler(async (req, res) => {
 		const totalOfDoctors = await getTotalOfDoctorsInDirectory();
 		const totalHospitals = await getTotalOfHospitalsInDirectory();
 		const totalMunicipalities = await getTotalOfMunicipalitiesInDirectory();
+		const totalDoctorsCountGroupedByGender =
+			await getTotalDoctorsGroupedByGender();
 
 		const totalDoctorsGroupedInSpecialties =
 			await getTotalOfDoctorsGroupedBySpecialty();
@@ -42,7 +39,23 @@ router.get(
 		const municipalitiesWithHospitalCount =
 			calculateMunicipalityHospitalCount(municipalitiesWithHospitals);
 
-		await res.status(200).send({ data: municipalitiesWithHospitalCount });
+		const municipalitiesGenderCount =
+			await getMunicipalitiesWithHospitalsAndNestedDoctorGenders();
+		const municipalitiesWithGenderCount = calculateMunicipalityGenderCount(
+			municipalitiesGenderCount
+		);
+
+		await res.status(200).send({
+			totalDoctors: totalOfDoctors,
+			totalHospitals: totalHospitals,
+			totalMunicipalities: totalMunicipalities,
+			totalDoctorsGroupedByGender: totalDoctorsCountGroupedByGender,
+			totalDoctorsGroupedBySpecialty:
+				doctorsGroupedInSpecialtiesWithSpecialtyNames,
+			totalHospitalsOfEachMunicipality: municipalitiesWithHospitalCount,
+			totalGenderCountOfDoctorsInMunicipality:
+				municipalitiesWithGenderCount
+		});
 	})
 );
 

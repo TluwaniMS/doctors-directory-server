@@ -44,9 +44,22 @@ async function getTotalOfDoctorsGroupedBySpecialty() {
 	return specialtyCount;
 }
 
+async function getTotalDoctorsGroupedByGender() {
+	const doctorsGroupedByGenderCount = await Doctor.findAll({
+		attributes: [
+			'gender',
+			[sequelize.fn('COUNT', sequelize.col('gender')), 'total']
+		],
+		group: ['gender']
+	});
+
+	return doctorsGroupedByGenderCount;
+}
+
 module.exports = {
 	getTotalOfDoctorsInDirectory,
 	getTotalOfHospitalsInDirectory,
 	getTotalOfMunicipalitiesInDirectory,
-	getTotalOfDoctorsGroupedBySpecialty
+	getTotalOfDoctorsGroupedBySpecialty,
+	getTotalDoctorsGroupedByGender
 };

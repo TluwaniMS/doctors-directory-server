@@ -1,4 +1,5 @@
 const { Doctor } = require('../models/doctor');
+const { Hospital } = require('../models/hospital');
 const { sequelize } = require('../database-config');
 
 async function getTotalOfDoctorsInDirectory() {
@@ -9,4 +10,17 @@ async function getTotalOfDoctorsInDirectory() {
 	return totalDoctors;
 }
 
-module.exports = { getTotalOfDoctorsInDirectory };
+async function getTotalOfHospitalsInDirectory() {
+	const totalHospitals = await Hospital.findAll({
+		attributes: [
+			[sequelize.fn('COUNT', sequelize.col('hospitalKey')), 'total']
+		]
+	});
+
+	return totalHospitals;
+}
+
+module.exports = {
+	getTotalOfDoctorsInDirectory,
+	getTotalOfHospitalsInDirectory
+};

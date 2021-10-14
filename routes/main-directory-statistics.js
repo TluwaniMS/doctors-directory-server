@@ -7,6 +7,9 @@ const {
 	getTotalOfMunicipalitiesInDirectory,
 	getTotalOfDoctorsGroupedBySpecialty
 } = require('../database-services/main-directory-stats-service');
+const {
+	addSpecialtyNamesToSpecialties
+} = require('../auxiliary-services/main-directory-stats-service');
 
 router.get(
 	'/get-total-doctors-in-directory',
@@ -16,8 +19,12 @@ router.get(
 		const totalMunicipalities = await getTotalOfMunicipalitiesInDirectory();
 		const totalDoctorsGroupedInSpecialties =
 			await getTotalOfDoctorsGroupedBySpecialty();
+		const doctorsGroupedInSpecialtiesWithSpecialtyNames =
+			addSpecialtyNamesToSpecialties(totalDoctorsGroupedInSpecialties);
 
-		await res.status(200).send({ data: totalDoctorsGroupedInSpecialties });
+		await res
+			.status(200)
+			.send({ data: doctorsGroupedInSpecialtiesWithSpecialtyNames });
 	})
 );
 

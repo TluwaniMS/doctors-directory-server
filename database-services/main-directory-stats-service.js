@@ -37,7 +37,8 @@ async function getTotalOfDoctorsGroupedBySpecialty() {
 			'specialty',
 			[sequelize.fn('COUNT', sequelize.col('specialty')), 'total']
 		],
-		group: ['specialty']
+		group: ['specialty'],
+		raw: true
 	});
 
 	return specialtyCount;

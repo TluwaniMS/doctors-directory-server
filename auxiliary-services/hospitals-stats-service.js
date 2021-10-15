@@ -1,4 +1,5 @@
 const ArrayOfSpecialtyModelProperties = require('../model-properties/array-of-specialty-model-properties');
+const DoctorsModelProperties = require('../model-properties/doctors-model-properties');
 
 function formatHospitalSpecialtyCount(specialtyCounts) {
 	const preparedSpecialtyCounts = [];
@@ -22,6 +23,46 @@ function formatHospitalSpecialtyCount(specialtyCounts) {
 	return preparedSpecialtyCounts;
 }
 
+function formatHospitalSpecialtyCountByGender(specialtyCounts) {
+	const preparedSpecialtyCountGroupedByGender = [];
+
+	ArrayOfSpecialtyModelProperties.forEach((specialty) => {
+		const linkedSpecialty = specialtyCounts.filter(
+			(count) => count.specialty === specialty.SpecialtyKey
+		);
+
+		const linkedMaleCount = linkedSpecialty.filter(
+			(count) => count.gender === DoctorsModelProperties.Gender.Male
+		);
+		const linkedFemaleCount = linkedSpecialty.filter(
+			(count) => count.gender === DoctorsModelProperties.Gender.Female
+		);
+
+		const maleCount =
+			linkedMaleCount.length > 0 ? linkedMaleCount[0].total : 0;
+		const femaleCount =
+			linkedFemaleCount.length > 0 ? linkedFemaleCount[0].total : 0;
+
+		const maleCountObject = {
+			gender: DoctorsModelProperties.Gender.Male,
+			total: maleCount
+		};
+		const femaleCountObject = {
+			gender: DoctorsModelProperties.Gender.Female,
+			total: femaleCount
+		};
+
+		const preparedSpecialty = {
+			specialtyName: specialty.SpecialtyName,
+			genderCount: [maleCountObject, femaleCountObject]
+		};
+
+		preparedSpecialtyCountGroupedByGender.push(preparedSpecialty);
+	});
+
+	return preparedSpecialtyCountGroupedByGender;
+}
+
 function prepareSpecialtyWithNoCountData(specialtyModel) {
 	const preparedSpecialtyCount = {
 		specialtyName: specialtyModel.SpecialtyName,
@@ -40,4 +81,7 @@ function prepareSpecialtyWithCountData(specialtyModel, total) {
 	return preparedSpecialtyCount;
 }
 
-module.exports = { formatHospitalSpecialtyCount };
+module.exports = {
+	formatHospitalSpecialtyCount,
+	formatHospitalSpecialtyCountByGender
+};

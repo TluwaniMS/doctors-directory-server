@@ -6,9 +6,10 @@ async function getTotalDoctorsByHospitalStatsGroupedByGender(hospitalKey) {
 		where: { hospital: hospitalKey },
 		attributes: [
 			'gender',
-			[sequelize.fn('COUNT', sequelize.col('gender')), 'n_gender']
+			[sequelize.fn('COUNT', sequelize.col('gender')), 'total']
 		],
-		group: ['gender']
+		group: ['gender'],
+		raw: true
 	});
 
 	return doctorsGroupedByGenderCount;
@@ -22,7 +23,7 @@ async function getTotalDoctorsByHospitalStatsGroupedByGenderAndSpecialty(
 		attributes: [
 			'gender',
 			'specialty',
-			[sequelize.fn('COUNT', sequelize.col('gender')), 'n_gender']
+			[sequelize.fn('COUNT', sequelize.col('gender')), 'total']
 		],
 		group: ['gender', 'specialty'],
 		raw: true

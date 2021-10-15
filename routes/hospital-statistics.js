@@ -7,7 +7,8 @@ const {
 	getTotalHospitalSpecialtyCount
 } = require('../database-services/hospital-stats-service');
 const {
-	formatHospitalSpecialtyCount
+	formatHospitalSpecialtyCount,
+	formatHospitalSpecialtyCountByGender
 } = require('../auxiliary-services/hospitals-stats-service');
 
 router.get(
@@ -45,7 +46,14 @@ router.get(
 				hospitalKey
 			);
 
-		res.status(200).send({ data: totalSpecialtyCountGroupedByGender });
+		const formatHospitalSpecialtyCountGroupedByGender =
+			formatHospitalSpecialtyCountByGender(
+				totalSpecialtyCountGroupedByGender
+			);
+
+		res.status(200).send({
+			data: formatHospitalSpecialtyCountGroupedByGender
+		});
 	})
 );
 

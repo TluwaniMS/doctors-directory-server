@@ -45,8 +45,19 @@ async function getTotalHospitalSpecialtyCount(hospitalKey) {
 
 	return specialtyCount;
 }
+
+async function getTotalHospitalDoctorCount(hospitalKey) {
+	const specialtyCount = await Doctor.findAll({
+		where: { hospital: hospitalKey },
+		attributes: [[sequelize.fn('COUNT', sequelize.col('id')), 'total']],
+		raw: true
+	});
+
+	return specialtyCount;
+}
 module.exports = {
 	getTotalDoctorsByHospitalStatsGroupedByGender,
 	getTotalDoctorsByHospitalStatsGroupedByGenderAndSpecialty,
-	getTotalHospitalSpecialtyCount
+	getTotalHospitalSpecialtyCount,
+	getTotalHospitalDoctorCount
 };

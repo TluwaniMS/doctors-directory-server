@@ -4,7 +4,8 @@ const { errorHandler } = require('../middleware/error-handler');
 const {
 	getTotalDoctorsByHospitalStatsGroupedByGender,
 	getTotalDoctorsByHospitalStatsGroupedByGenderAndSpecialty,
-	getTotalHospitalSpecialtyCount
+	getTotalHospitalSpecialtyCount,
+	getTotalHospitalDoctorCount
 } = require('../database-services/hospital-stats-service');
 const {
 	formatHospitalSpecialtyCount,
@@ -19,6 +20,16 @@ router.get(
 			await getTotalDoctorsByHospitalStatsGroupedByGender(hospitalKey);
 
 		res.status(200).send({ data: totalGenderCount });
+	})
+);
+
+router.get(
+	'/get-total-doctor-count/:hospitalKey',
+	errorHandler(async (req, res) => {
+		const { hospitalKey } = req.params;
+		const totalDoctorCount = await getTotalHospitalDoctorCount(hospitalKey);
+
+		res.status(200).send({ data: totalDoctorCount });
 	})
 );
 

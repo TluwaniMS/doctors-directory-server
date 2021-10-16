@@ -81,7 +81,14 @@ function prepareSpecialtyWithCountData(specialtyModel, total) {
 	return preparedSpecialtyCount;
 }
 
+function formatTotalHospitalDoctorCount(count) {
+	const doctorsCount = count[0];
+	const preparedDoctorsCount = { total: parseInt(doctorsCount.total) };
+
+	return preparedDoctorsCount;
+}
 module.exports = {
 	formatHospitalSpecialtyCount,
-	formatHospitalSpecialtyCountByGender
+	formatHospitalSpecialtyCountByGender,
+	formatTotalHospitalDoctorCount
 };

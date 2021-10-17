@@ -39,9 +39,11 @@ function formatHospitalSpecialtyCountByGender(specialtyCounts) {
 		);
 
 		const maleCount =
-			linkedMaleCount.length > 0 ? linkedMaleCount[0].total : 0;
+			linkedMaleCount.length > 0 ? parseInt(linkedMaleCount[0].total) : 0;
 		const femaleCount =
-			linkedFemaleCount.length > 0 ? linkedFemaleCount[0].total : 0;
+			linkedFemaleCount.length > 0
+				? parseInt(linkedFemaleCount[0].total)
+				: 0;
 
 		const maleCountObject = {
 			gender: DoctorsModelProperties.Gender.Male,

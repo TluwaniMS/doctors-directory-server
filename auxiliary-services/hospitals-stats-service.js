@@ -65,6 +65,40 @@ function formatHospitalSpecialtyCountByGender(specialtyCounts) {
 	return preparedSpecialtyCountGroupedByGender;
 }
 
+function formatHospitalGenderCount(genderCount) {
+	const formattedGenderCount = [];
+
+	const maleCount = genderCount.filter(
+		(count) => count.gender === DoctorsModelProperties.Gender.Male
+	);
+	const femaleCount = genderCount.filter(
+		(count) => count.gender === DoctorsModelProperties.Gender.Female
+	);
+
+	const formattedTotalMaleCount =
+		maleCount.length > 0
+			? createGenderCountObject(
+					DoctorsModelProperties.Gender.Male,
+					parseInt(maleCount[0].total)
+			  )
+			: createGenderCountObject(DoctorsModelProperties.Gender.Male);
+
+	const formattedTotaFemaleCount =
+		femaleCount.length > 0
+			? createGenderCountObject(
+					DoctorsModelProperties.Gender.Female,
+					parseInt(femaleCount[0].total)
+			  )
+			: createGenderCountObject(DoctorsModelProperties.Gender.Female);
+
+	formattedGenderCount.push(
+		formattedTotalMaleCount,
+		formattedTotaFemaleCount
+	);
+
+	return formattedGenderCount;
+}
+
 function prepareSpecialtyWithNoCountData(specialtyModel) {
 	const preparedSpecialtyCount = {
 		specialtyName: specialtyModel.SpecialtyName,
@@ -89,8 +123,15 @@ function formatTotalHospitalDoctorCount(count) {
 
 	return preparedDoctorsCount;
 }
+
+function createGenderCountObject(gender, total = 0) {
+	const genderCountObject = { gender: gender, total: total };
+
+	return genderCountObject;
+}
 module.exports = {
 	formatHospitalSpecialtyCount,
 	formatHospitalSpecialtyCountByGender,
-	formatTotalHospitalDoctorCount
+	formatTotalHospitalDoctorCount,
+	formatHospitalGenderCount
 };

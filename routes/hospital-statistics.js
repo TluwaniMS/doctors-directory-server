@@ -15,50 +15,16 @@ const {
 } = require('../auxiliary-services/hospitals-stats-service');
 
 router.get(
-	'/get-total-hospital-gender-count/:hospitalKey',
+	'/get-hospital-statistics/:hospitalKey',
 	errorHandler(async (req, res) => {
 		const { hospitalKey } = req.params;
+
 		const totalGenderCount =
 			await getTotalDoctorsByHospitalStatsGroupedByGender(hospitalKey);
-		const formattedGenderCount =
-			formatHospitalGenderCount(totalGenderCount);
-
-		res.status(200).send({ data: formattedGenderCount });
-	})
-);
-
-router.get(
-	'/get-total-doctor-count/:hospitalKey',
-	errorHandler(async (req, res) => {
-		const { hospitalKey } = req.params;
-
 		const totalDoctorCount = await getTotalHospitalDoctorCount(hospitalKey);
-		const formattedDoctorsCount =
-			formatTotalHospitalDoctorCount(totalDoctorCount);
-
-		res.status(200).send({ data: formattedDoctorsCount });
-	})
-);
-
-router.get(
-	'/get-total-hospital-specialty-count/:hospitalKey',
-	errorHandler(async (req, res) => {
-		const { hospitalKey } = req.params;
-
 		const totalSpecialtyCount = await getTotalHospitalSpecialtyCount(
 			hospitalKey
 		);
-		const formattedSpecialtyCount =
-			formatHospitalSpecialtyCount(totalSpecialtyCount);
-
-		res.status(200).send({ data: formattedSpecialtyCount });
-	})
-);
-
-router.get(
-	'/get-total-hospital-specialty-count-grouped-by-gender/:hospitalKey',
-	errorHandler(async (req, res) => {
-		const { hospitalKey } = req.params;
 		const totalSpecialtyCountGroupedByGender =
 			await getTotalDoctorsByHospitalStatsGroupedByGenderAndSpecialty(
 				hospitalKey
@@ -68,9 +34,19 @@ router.get(
 			formatHospitalSpecialtyCountByGender(
 				totalSpecialtyCountGroupedByGender
 			);
+		const formattedGenderCount =
+			formatHospitalGenderCount(totalGenderCount);
+		const formattedDoctorsCount =
+			formatTotalHospitalDoctorCount(totalDoctorCount);
+		const formattedSpecialtyCount =
+			formatHospitalSpecialtyCount(totalSpecialtyCount);
 
 		res.status(200).send({
-			data: formatHospitalSpecialtyCountGroupedByGender
+			specialtyCountGroupedByGender:
+				formatHospitalSpecialtyCountGroupedByGender,
+			genderCount: formattedGenderCount,
+			doctorsCount: formattedDoctorsCount,
+			specialtyCount: formattedSpecialtyCount
 		});
 	})
 );

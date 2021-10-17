@@ -2,11 +2,11 @@ const express = require('express');
 const router = express.Router();
 const { errorHandler } = require('../middleware/error-handler');
 const {
-	getMunicipalitiesWithHospitalsAndNestedDoctorGenders,
-	getMunicipalitiesWithHospitalsAndNestedDoctorSpecialties,
-	getMunicipalitiesWithHospitalsAndNestedDoctorSpecialtiesAndGender,
-	getMunicipalitiesNestedWithHospitals,
-	getMunicipalitiesWithHospitalsAndNestedDoctors
+	getMunicipalityNestedWithHospitalsByKey,
+	getMunicipalityWithHospitalsAndNestedDoctorGendersByKey,
+	getMunicipalityWithHospitalsAndNestedDoctorSpecialtiesByKey,
+	getMunicipalityWithHospitalsAndNestedDoctorSpecialtiesAndGenderByKey,
+	getMunicipalityWithHospitalsAndNestedDoctorsByKey
 } = require('../database-services/municpality-stats-service');
 const {
 	calculateMunicipalityHospitalCount,
@@ -17,10 +17,13 @@ const {
 } = require('../auxiliary-services/municipality-stats-service');
 
 router.get(
-	'/get-gender-count-of-municipalities-doctors',
+	'/get-gender-count-of-municipality-doctors/:municipalityKey',
 	errorHandler(async (req, res) => {
+		const { municipalityKey } = req.params;
 		const municipalitiesGenderCount =
-			await getMunicipalitiesWithHospitalsAndNestedDoctorGenders();
+			await getMunicipalityWithHospitalsAndNestedDoctorGendersByKey(
+				municipalityKey
+			);
 
 		const municipalitiesWithGenderCount = calculateMunicipalityGenderCount(
 			municipalitiesGenderCount
@@ -31,10 +34,13 @@ router.get(
 );
 
 router.get(
-	'/get-specialty-count-of-municipalities-doctors',
+	'/get-specialty-count-of-municipalities-doctors/:municipalityKey',
 	errorHandler(async (req, res) => {
+		const { municipalityKey } = req.params;
 		const municipalityDoctorsSpecialtyCount =
-			await getMunicipalitiesWithHospitalsAndNestedDoctorSpecialties();
+			await getMunicipalityWithHospitalsAndNestedDoctorSpecialtiesByKey(
+				municipalityKey
+			);
 
 		const municipalityWithTotalSpecialtyCount =
 			calculateMunicipalitySpecialityCount(
@@ -46,10 +52,13 @@ router.get(
 );
 
 router.get(
-	'/get-specialty-count-of-municipalities-grouped-by-gender',
+	'/get-specialty-count-of-municipalities-grouped-by-gender/:municipalityKey',
 	errorHandler(async (req, res) => {
+		const { municipalityKey } = req.params;
 		const municipalitiesSpecialtyCountGroupedByGender =
-			await getMunicipalitiesWithHospitalsAndNestedDoctorSpecialtiesAndGender();
+			await getMunicipalityWithHospitalsAndNestedDoctorSpecialtiesAndGenderByKey(
+				municipalityKey
+			);
 
 		const municipalitiesWithSpecialtyCountsGroupedByGender =
 			calculateMunicipalitySpecialitiesGroupedByGenderCount(
@@ -63,10 +72,13 @@ router.get(
 );
 
 router.get(
-	'/get-total-doctors-count-of-municipalities',
+	'/get-total-doctors-count-of-municipalities/:municipalityKey',
 	errorHandler(async (req, res) => {
+		const { municipalityKey } = req.params;
 		const municipalitiesWithHospitalsAndNestedDoctors =
-			await getMunicipalitiesWithHospitalsAndNestedDoctors();
+			await getMunicipalityWithHospitalsAndNestedDoctorsByKey(
+				municipalityKey
+			);
 
 		const municipalitiesWithTotalDoctorCount =
 			calculateMunicipalityDoctorsCount(
@@ -78,10 +90,11 @@ router.get(
 );
 
 router.get(
-	'/get-total-hospital-count-of-municipalities',
+	'/get-total-hospital-count-of-municipalities/:municipalityKey',
 	errorHandler(async (req, res) => {
+		const { municipalityKey } = req.params;
 		const municipalitiesWithHospitals =
-			await getMunicipalitiesNestedWithHospitals();
+			await getMunicipalityNestedWithHospitalsByKey(municipalityKey);
 
 		const municipalitiesWithHospitalCount =
 			calculateMunicipalityHospitalCount(municipalitiesWithHospitals);

@@ -2,14 +2,20 @@ const express = require('express');
 const router = express.Router();
 const { errorHandler } = require('../middleware/error-handler');
 const {
-	getTotalOfDoctorsGroupedByGenderAndSpecialty,
-	getTotalSpecialtyCount
+	getHospitalsWithNestedDoctorSpecialtiesAndGenderBySpecialtyKey,
+	getMunicipalitiesWithHospitalsAndNestedDoctorSpecialtiesAndGenderBySpecialtyKey,
+	getTotalOfDoctorsGroupedByGenderAndSpecialtyBySpecialtyKey,
+	getTotalSpecialtyCountBySpecialtyKey
 } = require('../database-services/specialty-stats-service');
 
 router.get(
-	'/get-total-specialty-count',
+	'/get-total-specialty-count/:specialtyKey',
 	errorHandler(async (req, res) => {
-		const totalSpecialtyCount = await getTotalSpecialtyCount();
+		const { specialtyKey } = req.params;
+		
+		const totalSpecialtyCount = await getTotalSpecialtyCountBySpecialtyKey(
+			specialtyKey
+		);
 
 		res.status(200).send({ data: totalSpecialtyCount });
 	})

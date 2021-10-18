@@ -72,6 +72,8 @@ async function getHospitalsWithNestedDoctorSpecialtiesAndGenderBySpecialtyKey() 
 }
 
 module.exports = {
-	getTotalSpecialtyCount,
-	getTotalOfDoctorsGroupedByGenderAndSpecialty
+	getTotalSpecialtyCountBySpecialtyKey,
+	getTotalOfDoctorsGroupedByGenderAndSpecialtyBySpecialtyKey,
+	getMunicipalitiesWithHospitalsAndNestedDoctorSpecialtiesAndGenderBySpecialtyKey,
+	getHospitalsWithNestedDoctorSpecialtiesAndGenderBySpecialtyKey
 };

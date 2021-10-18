@@ -10,9 +10,11 @@ const {
 const {
 	formatHospitalSpecialtyCount,
 	formatHospitalSpecialtyCountByGender,
-	formatTotalHospitalDoctorCount,
 	formatHospitalGenderCount
 } = require('../auxiliary-services/hospitals-stats-service');
+const {
+	formatTotalPropertyCount
+} = require('../auxiliary-services/shared-services');
 
 router.get(
 	'/get-hospital-statistics/:hospitalKey',
@@ -37,7 +39,7 @@ router.get(
 		const formattedGenderCount =
 			formatHospitalGenderCount(totalGenderCount);
 		const formattedDoctorsCount =
-			formatTotalHospitalDoctorCount(totalDoctorCount);
+			formatTotalPropertyCount(totalDoctorCount);
 		const formattedSpecialtyCount =
 			formatHospitalSpecialtyCount(totalSpecialtyCount);
 

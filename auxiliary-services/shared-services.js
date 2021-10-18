@@ -57,7 +57,15 @@ function structureBasicStatsForMunicipality(totalDoctors, totalHospitals) {
 	return basicStats;
 }
 
+function formatTotalPropertyCount(count) {
+	const propertyCount = count[0];
+	const preparedCount = { total: parseInt(propertyCount.total) };
+
+	return preparedCount;
+}
+
 module.exports = {
 	calculateBasicDirectoryStatsForMunicipalView,
-	getBasicStatsForSingleMunicipality
+	getBasicStatsForSingleMunicipality,
+	formatTotalPropertyCount
 };

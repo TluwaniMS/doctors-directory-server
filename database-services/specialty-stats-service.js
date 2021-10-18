@@ -6,7 +6,8 @@ const { sequelize } = require('../database-config');
 async function getTotalSpecialtyCountBySpecialtyKey(specialtyKey) {
 	const doctorsGroupedByGenderCount = await Doctor.findAll({
 		where: { specialty: specialtyKey },
-		attributes: [[sequelize.fn('COUNT', sequelize.col('id')), 'total']]
+		attributes: [[sequelize.fn('COUNT', sequelize.col('id')), 'total']],
+		raw: true
 	});
 
 	return doctorsGroupedByGenderCount;
@@ -21,7 +22,8 @@ async function getTotalOfDoctorsGroupedByGenderAndSpecialtyBySpecialtyKey(
 			'gender',
 			[sequelize.fn('COUNT', sequelize.col('gender')), 'total']
 		],
-		group: ['gender']
+		group: ['gender'],
+		raw: true
 	});
 
 	return specialtyCount;

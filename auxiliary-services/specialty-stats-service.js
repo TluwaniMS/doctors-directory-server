@@ -1,4 +1,6 @@
 const DoctorsModelProperties = require('../model-properties/doctors-model-properties');
+const ArrayOfSpecialtyModelProperties = require('../model-properties/array-of-specialty-model-properties');
+const MainDirectoryModelProperties = require('../model-properties/main-model-properties');
 
 function formatSpecialtyCountByGender(specialtyCount) {
 	const preparedSpecialtyCountGroupedByGender = [];

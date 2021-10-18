@@ -29,7 +29,9 @@ async function getTotalOfDoctorsGroupedByGenderAndSpecialtyBySpecialtyKey(
 	return specialtyCount;
 }
 
-async function getMunicipalitiesWithHospitalsAndNestedDoctorSpecialtiesAndGenderBySpecialtyKey() {
+async function getMunicipalitiesWithHospitalsAndNestedDoctorSpecialtiesAndGenderBySpecialtyKey(
+	specialtyKey
+) {
 	const municipalitiesWithHospitalsAndNestedDoctorSpecialtiesAndGender =
 		await Municipality.findAll({
 			attributes: ['municipalityName'],
@@ -53,7 +55,9 @@ async function getMunicipalitiesWithHospitalsAndNestedDoctorSpecialtiesAndGender
 	return municipalitiesWithHospitalsAndNestedDoctorSpecialtiesAndGender;
 }
 
-async function getHospitalsWithNestedDoctorSpecialtiesAndGenderBySpecialtyKey() {
+async function getHospitalsWithNestedDoctorSpecialtiesAndGenderBySpecialtyKey(
+	specialtyKey
+) {
 	const hospitalsAndNestedDoctorSpecialtiesAndGender = await Hospital.findAll(
 		{
 			attributes: ['hospitalName'],

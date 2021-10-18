@@ -26,13 +26,23 @@ router.get(
 			await getTotalOfDoctorsGroupedByGenderAndSpecialtyBySpecialtyKey(
 				specialtyKey
 			);
+		const totalSpecialtyCountGroupedByGenderInHospitals =
+			await getHospitalsWithNestedDoctorSpecialtiesAndGenderBySpecialtyKey(
+				specialtyKey
+			);
+		const totalSpecialtyCountGroupedByGenderInMunicipalities =
+			await getMunicipalitiesWithHospitalsAndNestedDoctorSpecialtiesAndGenderBySpecialtyKey(
+				specialtyKey
+			);
 
 		const formattedspecialtyCount =
 			formatTotalPropertyCount(totalSpecialtyCount);
 		const formattedSpecialtyCountGroupedByGender =
 			formatSpecialtyCountByGender(totalSpecialtyCountGroupedByGender);
 
-		res.status(200).send({ data: formattedSpecialtyCountGroupedByGender });
+		res.status(200).send({
+			data: totalSpecialtyCountGroupedByGenderInMunicipalities
+		});
 	})
 );
 

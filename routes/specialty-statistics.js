@@ -10,6 +10,9 @@ const {
 const {
 	formatTotalPropertyCount
 } = require('../auxiliary-services/shared-services');
+const {
+	formatSpecialtyCountByGender
+} = require('../auxiliary-services/specialty-stats-service');
 
 router.get(
 	'/get-total-specialty-count/:specialtyKey',
@@ -19,11 +22,17 @@ router.get(
 		const totalSpecialtyCount = await getTotalSpecialtyCountBySpecialtyKey(
 			specialtyKey
 		);
+		const totalSpecialtyCountGroupedByGender =
+			await getTotalOfDoctorsGroupedByGenderAndSpecialtyBySpecialtyKey(
+				specialtyKey
+			);
 
 		const formattedspecialtyCount =
 			formatTotalPropertyCount(totalSpecialtyCount);
+		const formattedSpecialtyCountGroupedByGender =
+			formatSpecialtyCountByGender(totalSpecialtyCountGroupedByGender);
 
-		res.status(200).send({ data: formattedspecialtyCount });
+		res.status(200).send({ data: formattedSpecialtyCountGroupedByGender });
 	})
 );
 

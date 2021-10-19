@@ -51,18 +51,14 @@ router.get(
 			);
 
 		res.status(200).send({
-			data: formattedSpecialtyCountGroupedByGenderAndSpecialtyInHospitals
+			totalSpecialtyCount: formattedspecialtyCount,
+			specialtyCountGroupedByGender:
+				formattedSpecialtyCountGroupedByGender,
+			specialtyCountGroupedByGenderForMunicipalities:
+				formattedSpecialtyCountGroupedByGenderAndSpecialtyInMunicipalities,
+			specialtyCountGroupedByGenderForHospitals:
+				formattedSpecialtyCountGroupedByGenderAndSpecialtyInHospitals
 		});
-	})
-);
-
-router.get(
-	'/get-total-specialty-count-grouped-by-gender',
-	errorHandler(async (req, res) => {
-		const totalSpecialtyCountGroupedByGender =
-			await getTotalOfDoctorsGroupedByGenderAndSpecialty();
-
-		res.status(200).send({ data: totalSpecialtyCountGroupedByGender });
 	})
 );
 

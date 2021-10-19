@@ -7,6 +7,7 @@ const {
 	extractDoctorsLinkedToHospitals,
 	extractDoctorsByGender
 } = require('./municipality-stats-service');
+const { hospitals } = require('../sample-data/hospitals');
 
 function formatSpecialtyCountByGender(specialtyCount) {
 	const preparedSpecialtyCountGroupedByGender = [];
@@ -85,7 +86,42 @@ function formatSpecialtyCountInMunicipalityByGenderAndSpecialty(
 	return preparedMunicipalitiesWithDoctorscountGroupedByGenderAndSpecialty;
 }
 
+function formatSpecialtyCountGroupedByGenderInHoispitals(specialtyCount) {
+	const preparedHospitalsWithSpecialtyCountGroupedByGender = [];
+
+	hospitals.forEach((hospital) => {
+		hospitalsLinkedToCurrentHospital = specialtyCount.filter(
+			(count) => count.hospitalName === hospital.hospitalName
+		);
+		doctorsLinkedToHospital = hospitalsLinkedToCurrentHospital.map(
+			(hospital) => hospital.Doctors
+		);
+
+		femaleCount = doctorsLinkedToHospital.filter(
+			(doctor) => doctor.gender === DoctorsModelProperties.Gender.Female
+		);
+		maleCount = doctorsLinkedToHospital.filter(
+			(doctor) => doctor.gender === DoctorsModelProperties.Gender.Male
+		);
+
+		totalMaleCount = maleCount.length;
+		totalFemaleCount = femaleCount.length;
+
+		preparedHospitalHospital = {
+			hospitalName: hospital.hospitalName,
+			totalFemaleDoctors: totalFemaleCount,
+			totalMaleDoctors: totalMaleCount
+		};
+
+		preparedHospitalsWithSpecialtyCountGroupedByGender.push(
+			preparedHospitalHospital
+		);
+	});
+
+	return preparedHospitalsWithSpecialtyCountGroupedByGender;
+}
 module.exports = {
 	formatSpecialtyCountByGender,
-	formatSpecialtyCountInMunicipalityByGenderAndSpecialty
+	formatSpecialtyCountInMunicipalityByGenderAndSpecialty,
+	formatSpecialtyCountGroupedByGenderInHoispitals
 };

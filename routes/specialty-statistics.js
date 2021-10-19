@@ -12,7 +12,8 @@ const {
 } = require('../auxiliary-services/shared-services');
 const {
 	formatSpecialtyCountByGender,
-	formatSpecialtyCountInMunicipalityByGenderAndSpecialty
+	formatSpecialtyCountInMunicipalityByGenderAndSpecialty,
+	formatSpecialtyCountGroupedByGenderInHoispitals
 } = require('../auxiliary-services/specialty-stats-service');
 
 router.get(
@@ -44,9 +45,13 @@ router.get(
 			formatSpecialtyCountInMunicipalityByGenderAndSpecialty(
 				totalSpecialtyCountGroupedByGenderInMunicipalities
 			);
+		const formattedSpecialtyCountGroupedByGenderAndSpecialtyInHospitals =
+			formatSpecialtyCountGroupedByGenderInHoispitals(
+				totalSpecialtyCountGroupedByGenderInHospitals
+			);
 
 		res.status(200).send({
-			data: formattedSpecialtyCountGroupedByGenderAndSpecialtyInMunicipalities
+			data: formattedSpecialtyCountGroupedByGenderAndSpecialtyInHospitals
 		});
 	})
 );

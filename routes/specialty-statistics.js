@@ -17,7 +17,7 @@ const {
 } = require('../auxiliary-services/specialty-stats-service');
 
 router.get(
-	'/get-total-specialty-count/:specialtyKey',
+	'/get-speciality-statistics/:specialtyKey',
 	errorHandler(async (req, res) => {
 		const { specialtyKey } = req.params;
 

@@ -286,5 +286,9 @@ module.exports = {
 	calculateMunicipalityDoctorsCount,
 	calculateMunicipalityGenderCount,
 	calculateMunicipalitySpecialityCount,
-	calculateMunicipalitySpecialitiesGroupedByGenderCount
+	calculateMunicipalitySpecialitiesGroupedByGenderCount,
+	extractMunicipalityNames,
+	extractContentLinkedToMunicipality,
+	extractDoctorsLinkedToHospitals,
+	extractDoctorsByGender
 };

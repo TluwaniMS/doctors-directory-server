@@ -49,11 +49,12 @@ router.get(
 		);
 
 		const formattedDoctorsCounts = formatTotalPropertyCount(totalOfDoctors)
-
+		const formattedHospitalCount = formatTotalPropertyCount(totalHospitals)
+		const formattedMunicipalityCount = formatTotalPropertyCount(totalMunicipalities)
 		await res.status(200).send({
 			totalDoctors: formattedDoctorsCounts,
-			totalHospitals: totalHospitals,
-			totalMunicipalities: totalMunicipalities,
+			totalHospitals: formattedHospitalCount,
+			totalMunicipalities: formattedMunicipalityCount,
 			totalDoctorsGroupedByGender: totalDoctorsCountGroupedByGender,
 			totalDoctorsGroupedBySpecialty:
 				doctorsGroupedInSpecialtiesWithSpecialtyNames,

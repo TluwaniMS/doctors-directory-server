@@ -10,6 +10,7 @@ function addSpecialtyNamesToSpecialties(specialties) {
 		)[0];
 
 		linkedSpecialty.specialtyName = specialty.SpecialtyName;
+		linkedSpecialty.total = parseInt(linkedSpecialty.total);
 
 		specialtiesWithNamesAttached.push(linkedSpecialty);
 	});

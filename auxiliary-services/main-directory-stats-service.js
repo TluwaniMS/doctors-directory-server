@@ -18,4 +18,18 @@ function addSpecialtyNamesToSpecialties(specialties) {
 	return specialtiesWithNamesAttached;
 }
 
-module.exports = { addSpecialtyNamesToSpecialties };
+function formatTotalGroupedGenderCount(groupedGenderCount) {
+	const preparedGenderCount = [];
+
+	groupedGenderCount.forEach((count) => {
+		count.total = parseInt(count.total);
+		preparedGenderCount.push(count);
+	});
+
+	return preparedGenderCount;
+}
+
+module.exports = {
+	addSpecialtyNamesToSpecialties,
+	formatTotalGroupedGenderCount
+};

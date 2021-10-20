@@ -6,10 +6,12 @@ const {
 	getTotalOfHospitalsInDirectory,
 	getTotalOfMunicipalitiesInDirectory,
 	getTotalOfDoctorsGroupedBySpecialty,
-	getTotalDoctorsGroupedByGender
+	getTotalDoctorsGroupedByGender,
+	
 } = require('../database-services/main-directory-stats-service');
 const {
-	addSpecialtyNamesToSpecialties
+	addSpecialtyNamesToSpecialties,
+	formatTotalGroupedGenderCount
 } = require('../auxiliary-services/main-directory-stats-service');
 const {
 	calculateMunicipalityHospitalCount,
@@ -51,11 +53,12 @@ router.get(
 		const formattedDoctorsCounts = formatTotalPropertyCount(totalOfDoctors)
 		const formattedHospitalCount = formatTotalPropertyCount(totalHospitals)
 		const formattedMunicipalityCount = formatTotalPropertyCount(totalMunicipalities)
+		const formattedGenderCount = formatTotalGroupedGenderCount(totalDoctorsCountGroupedByGender)
 		await res.status(200).send({
 			totalDoctors: formattedDoctorsCounts,
 			totalHospitals: formattedHospitalCount,
 			totalMunicipalities: formattedMunicipalityCount,
-			totalDoctorsGroupedByGender: totalDoctorsCountGroupedByGender,
+			totalDoctorsGroupedByGender: formattedGenderCount,
 			totalDoctorsGroupedBySpecialty:
 				doctorsGroupedInSpecialtiesWithSpecialtyNames,
 			totalHospitalsOfEachMunicipality: municipalitiesWithHospitalCount,

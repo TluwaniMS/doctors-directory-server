@@ -19,6 +19,9 @@ const {
 	getMunicipalitiesWithHospitalsAndNestedDoctorGenders,
 	getMunicipalitiesNestedWithHospitals
 } = require('../database-services/municpality-stats-service');
+const {
+	formatTotalPropertyCount
+} = require('../auxiliary-services/shared-services');
 
 router.get(
 	'/main-directory-statistics',
@@ -45,8 +48,10 @@ router.get(
 			municipalitiesGenderCount
 		);
 
+		const formattedDoctorsCounts = formatTotalPropertyCount(totalOfDoctors)
+
 		await res.status(200).send({
-			totalDoctors: totalOfDoctors,
+			totalDoctors: formattedDoctorsCounts,
 			totalHospitals: totalHospitals,
 			totalMunicipalities: totalMunicipalities,
 			totalDoctorsGroupedByGender: totalDoctorsCountGroupedByGender,

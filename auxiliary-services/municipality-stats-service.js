@@ -239,7 +239,7 @@ function extractDoctorsSpecialtyAndCalculateTotalCount(doctors) {
 		const totalDoctorsLinkedToSpecialty = doctorsLinkedToSpecialty.length;
 
 		const formattedSpecialtyCount = {
-			SpecialtyName: specialty.SpecialtyName,
+			specialtyName: specialty.SpecialtyName,
 			total: totalDoctorsLinkedToSpecialty
 		};
 

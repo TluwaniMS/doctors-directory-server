@@ -1,6 +1,7 @@
 const MainDirectoryModelProperties = require('../model-properties/main-model-properties');
 const DoctorsModelProperties = require('../model-properties/doctors-model-properties');
 const ArrayOfSpecialtyModelProperties = require('../model-properties/array-of-specialty-model-properties');
+const { hospitals } = require('../sample-data/hospitals');
 
 function calculateMunicipalityHospitalCount(municipalitiesWithHospitals) {
 	const municipalitiesWithHospitalCount = [];
@@ -281,6 +282,40 @@ function extractDoctorsSpecialtyGroupedByGenderAndCalculateTotalCount(doctors) {
 
 	return preparedDoctorsSpecialtyGroupedByGenderCounts;
 }
+
+function calculateTotalDoctorsInHospitalsAndFormatData(
+	municipalHospitalsWithDoctors
+) {
+	const preparedHospitals = [];
+	const municipalHospitals = municipalHospitalsWithDoctors.map(
+		(municipality) => municipality.Hospitals
+	);
+
+	hospitals.forEach((hospital) => {
+		const linkedHospitals = municipalHospitals.filter(
+			(municipalHosp) =>
+				municipalHosp.hospitalName === hospital.hospitalName
+		);
+
+		let totalDoctorsInHospitalArray = linkedHospitals.map(
+			(hosp) => hosp.Doctors
+		);
+
+		const preparedHospitalData =
+			linkedHospitals.length > 0
+				? {
+						hospitalName: hospital.hospitalName,
+						total: totalDoctorsInHospitalArray.length
+				  }
+				: '';
+
+		linkedHospitals.length > 0
+			? preparedHospitals.push(preparedHospitalData)
+			: '';
+	});
+
+	return preparedHospitals;
+}
 module.exports = {
 	calculateMunicipalityHospitalCount,
 	calculateMunicipalityDoctorsCount,
@@ -290,5 +325,6 @@ module.exports = {
 	extractMunicipalityNames,
 	extractContentLinkedToMunicipality,
 	extractDoctorsLinkedToHospitals,
-	extractDoctorsByGender
+	extractDoctorsByGender,
+	calculateTotalDoctorsInHospitalsAndFormatData
 };

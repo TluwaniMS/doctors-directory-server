@@ -13,7 +13,8 @@ const {
 	calculateMunicipalityDoctorsCount,
 	calculateMunicipalityGenderCount,
 	calculateMunicipalitySpecialityCount,
-	calculateMunicipalitySpecialitiesGroupedByGenderCount
+	calculateMunicipalitySpecialitiesGroupedByGenderCount,
+	calculateTotalDoctorsInHospitalsAndFormatData
 } = require('../auxiliary-services/municipality-stats-service');
 
 router.get(
@@ -57,6 +58,10 @@ router.get(
 			calculateMunicipalitySpecialityCount(
 				municipalityDoctorsSpecialtyCount
 			);
+		const totalDoctorsInHospitalsInMunicipality =
+		calculateTotalDoctorsInHospitalsAndFormatData(
+				municipalitiesWithHospitalsAndNestedDoctors
+			);
 		res.status(200).send({
 			totalHospitalsInMunicipality: municipalitiesWithHospitalCount,
 			totalGenderCountInMunicipality: municipalitiesWithGenderCount,
@@ -64,7 +69,9 @@ router.get(
 			totalSpecialtyCountGroupedByGenderInMunicipality:
 				municipalitiesWithSpecialtyCountsGroupedByGender,
 			totalSpecialtyCountInMunicipality:
-				municipalityWithTotalSpecialtyCount
+				municipalityWithTotalSpecialtyCount,
+			doctorsCountForHospitalsInMunicipality:
+				totalDoctorsInHospitalsInMunicipality
 		});
 	})
 );

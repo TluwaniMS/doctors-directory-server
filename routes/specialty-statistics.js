@@ -7,9 +7,7 @@ const {
 	getTotalOfDoctorsGroupedByGenderAndSpecialtyBySpecialtyKey,
 	getTotalSpecialtyCountBySpecialtyKey
 } = require('../database-services/specialty-stats-service');
-const {
-	formatTotalPropertyCount
-} = require('../auxiliary-services/shared-services');
+const { formatTotalPropertyCount } = require('../auxiliary-services/shared-services');
 const {
 	formatSpecialtyCountByGender,
 	formatSpecialtyCountInMunicipalityByGenderAndSpecialty,
@@ -21,43 +19,28 @@ router.get(
 	errorHandler(async (req, res) => {
 		const { specialtyKey } = req.params;
 
-		const totalSpecialtyCount = await getTotalSpecialtyCountBySpecialtyKey(
+		const totalSpecialtyCount = await getTotalSpecialtyCountBySpecialtyKey(specialtyKey);
+		const totalSpecialtyCountGroupedByGender = await getTotalOfDoctorsGroupedByGenderAndSpecialtyBySpecialtyKey(
 			specialtyKey
 		);
-		const totalSpecialtyCountGroupedByGender =
-			await getTotalOfDoctorsGroupedByGenderAndSpecialtyBySpecialtyKey(
-				specialtyKey
-			);
 		const totalSpecialtyCountGroupedByGenderInHospitals =
-			await getHospitalsWithNestedDoctorSpecialtiesAndGenderBySpecialtyKey(
-				specialtyKey
-			);
+			await getHospitalsWithNestedDoctorSpecialtiesAndGenderBySpecialtyKey(specialtyKey);
 		const totalSpecialtyCountGroupedByGenderInMunicipalities =
-			await getMunicipalitiesWithHospitalsAndNestedDoctorSpecialtiesAndGenderBySpecialtyKey(
-				specialtyKey
-			);
+			await getMunicipalitiesWithHospitalsAndNestedDoctorSpecialtiesAndGenderBySpecialtyKey(specialtyKey);
 
-		const formattedspecialtyCount =
-			formatTotalPropertyCount(totalSpecialtyCount);
-		const formattedSpecialtyCountGroupedByGender =
-			formatSpecialtyCountByGender(totalSpecialtyCountGroupedByGender);
+		const formattedspecialtyCount = formatTotalPropertyCount(totalSpecialtyCount);
+		const formattedSpecialtyCountGroupedByGender = formatSpecialtyCountByGender(totalSpecialtyCountGroupedByGender);
 		const formattedSpecialtyCountGroupedByGenderAndSpecialtyInMunicipalities =
-			formatSpecialtyCountInMunicipalityByGenderAndSpecialty(
-				totalSpecialtyCountGroupedByGenderInMunicipalities
-			);
+			formatSpecialtyCountInMunicipalityByGenderAndSpecialty(totalSpecialtyCountGroupedByGenderInMunicipalities);
 		const formattedSpecialtyCountGroupedByGenderAndSpecialtyInHospitals =
-			formatSpecialtyCountGroupedByGenderInHoispitals(
-				totalSpecialtyCountGroupedByGenderInHospitals
-			);
+			formatSpecialtyCountGroupedByGenderInHoispitals(totalSpecialtyCountGroupedByGenderInHospitals);
 
 		res.status(200).send({
 			totalSpecialtyCount: formattedspecialtyCount,
-			specialtyCountGroupedByGender:
-				formattedSpecialtyCountGroupedByGender,
+			specialtyCountGroupedByGender: formattedSpecialtyCountGroupedByGender,
 			specialtyCountGroupedByGenderForMunicipalities:
 				formattedSpecialtyCountGroupedByGenderAndSpecialtyInMunicipalities,
-			specialtyCountGroupedByGenderForHospitals:
-				formattedSpecialtyCountGroupedByGenderAndSpecialtyInHospitals
+			specialtyCountGroupedByGenderForHospitals: formattedSpecialtyCountGroupedByGenderAndSpecialtyInHospitals
 		});
 	})
 );

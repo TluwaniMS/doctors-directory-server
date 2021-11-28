@@ -1,9 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { errorHandler } = require('../middleware/error-handler');
-const {
-	getAllSpecialties
-} = require('../database-services/specialties-service');
+const { getAllSpecialties } = require('../database-services/specialties-service');
 const { Specialisation } = require('../models/specialisation');
 
 router.get(

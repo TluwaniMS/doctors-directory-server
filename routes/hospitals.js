@@ -1,20 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const { errorHandler } = require('../middleware/error-handler');
-const {
-	getAllHospitals,
-	getHospitalsByMunicipality
-} = require('../database-services/hospitals-service');
+const { getAllHospitals, getHospitalsByMunicipality } = require('../database-services/hospitals-service');
 const {
 	extractHospitalKeys,
 	formatBasicStatsForHospitalsOnMunicipalView
 } = require('../auxiliary-services/hospitals-services');
-const {
-	findDoctorsFromHospitalKeysArray
-} = require('../database-services/doctors-service');
-const {
-	getBasicStatsForSingleMunicipality
-} = require('../auxiliary-services/shared-services');
+const { findDoctorsFromHospitalKeysArray } = require('../database-services/doctors-service');
+const { getBasicStatsForSingleMunicipality } = require('../auxiliary-services/shared-services');
 const { Hospital } = require('../models/hospital');
 
 router.get(
@@ -62,13 +55,9 @@ router.get(
 		const hospitals = await getHospitalsByMunicipality(municipalityKey);
 		const hospitalKeys = extractHospitalKeys(hospitals);
 		const doctors = await findDoctorsFromHospitalKeysArray(hospitalKeys);
-		const basicStats = getBasicStatsForSingleMunicipality(
-			hospitals,
-			doctors
-		);
+		const basicStats = getBasicStatsForSingleMunicipality(hospitals, doctors);
 
-		const hospitalsWithBasicStats =
-			formatBasicStatsForHospitalsOnMunicipalView(hospitals, doctors);
+		const hospitalsWithBasicStats = formatBasicStatsForHospitalsOnMunicipalView(hospitals, doctors);
 
 		res.status(200).send({
 			hospitals: hospitalsWithBasicStats,

@@ -10,8 +10,7 @@ const { errorHandler } = require('../middleware/error-handler');
 router.get(
 	'/doctors-grouped-by-gender',
 	errorHandler(async (req, res) => {
-		const doctorsGroupedByGenderCount =
-			await getDoctorsStatsGroupedByGender();
+		const doctorsGroupedByGenderCount = await getDoctorsStatsGroupedByGender();
 
 		res.status(200).send({ data: doctorsGroupedByGenderCount });
 	})
@@ -20,8 +19,7 @@ router.get(
 router.get(
 	'/doctors-grouped-by-gender-and-specialty',
 	errorHandler(async (req, res) => {
-		const doctorsGroupedByGenderAndSpecialtyCount =
-			await getDoctorsStatsGroupedByGenderAndSpecialty();
+		const doctorsGroupedByGenderAndSpecialtyCount = await getDoctorsStatsGroupedByGenderAndSpecialty();
 
 		res.status(200).send({ data: doctorsGroupedByGenderAndSpecialtyCount });
 	})
@@ -31,10 +29,9 @@ router.get(
 	'/get-doctors-by-hospital-key-grouped-by-gender-and-specialty/:hospitalKey',
 	errorHandler(async (req, res) => {
 		const { hospitalKey } = req.params;
-		const doctorsGroupedByGenderAndSpecialtyCount =
-			await getDoctorsStatsByHospitalKeyGroupedByGenderAndSpecialty(
-				hospitalKey
-			);
+		const doctorsGroupedByGenderAndSpecialtyCount = await getDoctorsStatsByHospitalKeyGroupedByGenderAndSpecialty(
+			hospitalKey
+		);
 
 		res.status(200).send({ data: doctorsGroupedByGenderAndSpecialtyCount });
 	})

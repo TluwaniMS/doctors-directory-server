@@ -22,56 +22,40 @@ router.get(
 	errorHandler(async (req, res) => {
 		const { municipalityKey } = req.params;
 
-		const municipalitiesGenderCount =
-			await getMunicipalityWithHospitalsAndNestedDoctorGendersByKey(
-				municipalityKey
-			);
-		const municipalityDoctorsSpecialtyCount =
-			await getMunicipalityWithHospitalsAndNestedDoctorSpecialtiesByKey(
-				municipalityKey
-			);
-		const municipalitiesSpecialtyCountGroupedByGender =
-			await getMunicipalityWithHospitalsAndNestedDoctorSpecialtiesAndGenderByKey(
-				municipalityKey
-			);
-		const municipalitiesWithHospitalsAndNestedDoctors =
-			await getMunicipalityWithHospitalsAndNestedDoctorsByKey(
-				municipalityKey
-			);
-		const municipalitiesWithHospitals =
-			await getMunicipalityNestedWithHospitalsByKey(municipalityKey);
-
-		const municipalitiesWithHospitalCount =
-			calculateMunicipalityHospitalCount(municipalitiesWithHospitals);
-		const municipalitiesWithGenderCount = calculateMunicipalityGenderCount(
-			municipalitiesGenderCount
+		const municipalitiesGenderCount = await getMunicipalityWithHospitalsAndNestedDoctorGendersByKey(
+			municipalityKey
 		);
-		const municipalitiesWithTotalDoctorCount =
-			calculateMunicipalityDoctorsCount(
-				municipalitiesWithHospitalsAndNestedDoctors
-			);
-		const municipalitiesWithSpecialtyCountsGroupedByGender =
-			calculateMunicipalitySpecialitiesGroupedByGenderCount(
-				municipalitiesSpecialtyCountGroupedByGender
-			);
-		const municipalityWithTotalSpecialtyCount =
-			calculateMunicipalitySpecialityCount(
-				municipalityDoctorsSpecialtyCount
-			);
-		const totalDoctorsInHospitalsInMunicipality =
-		calculateTotalDoctorsInHospitalsAndFormatData(
-				municipalitiesWithHospitalsAndNestedDoctors
-			);
+		const municipalityDoctorsSpecialtyCount = await getMunicipalityWithHospitalsAndNestedDoctorSpecialtiesByKey(
+			municipalityKey
+		);
+		const municipalitiesSpecialtyCountGroupedByGender =
+			await getMunicipalityWithHospitalsAndNestedDoctorSpecialtiesAndGenderByKey(municipalityKey);
+		const municipalitiesWithHospitalsAndNestedDoctors = await getMunicipalityWithHospitalsAndNestedDoctorsByKey(
+			municipalityKey
+		);
+		const municipalitiesWithHospitals = await getMunicipalityNestedWithHospitalsByKey(municipalityKey);
+
+		const municipalitiesWithHospitalCount = calculateMunicipalityHospitalCount(municipalitiesWithHospitals);
+		const municipalitiesWithGenderCount = calculateMunicipalityGenderCount(municipalitiesGenderCount);
+		const municipalitiesWithTotalDoctorCount = calculateMunicipalityDoctorsCount(
+			municipalitiesWithHospitalsAndNestedDoctors
+		);
+		const municipalitiesWithSpecialtyCountsGroupedByGender = calculateMunicipalitySpecialitiesGroupedByGenderCount(
+			municipalitiesSpecialtyCountGroupedByGender
+		);
+		const municipalityWithTotalSpecialtyCount = calculateMunicipalitySpecialityCount(
+			municipalityDoctorsSpecialtyCount
+		);
+		const totalDoctorsInHospitalsInMunicipality = calculateTotalDoctorsInHospitalsAndFormatData(
+			municipalitiesWithHospitalsAndNestedDoctors
+		);
 		res.status(200).send({
 			totalHospitalsInMunicipality: municipalitiesWithHospitalCount,
 			totalGenderCountInMunicipality: municipalitiesWithGenderCount,
 			totalDoctorCountInMunicipality: municipalitiesWithTotalDoctorCount,
-			totalSpecialtyCountGroupedByGenderInMunicipality:
-				municipalitiesWithSpecialtyCountsGroupedByGender,
-			totalSpecialtyCountInMunicipality:
-				municipalityWithTotalSpecialtyCount,
-			doctorsCountForHospitalsInMunicipality:
-				totalDoctorsInHospitalsInMunicipality
+			totalSpecialtyCountGroupedByGenderInMunicipality: municipalitiesWithSpecialtyCountsGroupedByGender,
+			totalSpecialtyCountInMunicipality: municipalityWithTotalSpecialtyCount,
+			doctorsCountForHospitalsInMunicipality: totalDoctorsInHospitalsInMunicipality
 		});
 	})
 );

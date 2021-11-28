@@ -1,12 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { errorHandler } = require('../middleware/error-handler');
-const {
-	getAllMunicipalities
-} = require('../database-services/municipalities-service');
-const {
-	calculateBasicDirectoryStatsForMunicipalView
-} = require('../auxiliary-services/shared-services');
+const { getAllMunicipalities } = require('../database-services/municipalities-service');
+const { calculateBasicDirectoryStatsForMunicipalView } = require('../auxiliary-services/shared-services');
 const { Municipality } = require('../models/municipality');
 
 router.get(

@@ -12,40 +12,29 @@ const {
 	formatHospitalSpecialtyCountByGender,
 	formatHospitalGenderCount
 } = require('../auxiliary-services/hospitals-stats-service');
-const {
-	formatTotalPropertyCount
-} = require('../auxiliary-services/shared-services');
+const { formatTotalPropertyCount } = require('../auxiliary-services/shared-services');
 
 router.get(
 	'/get-hospital-statistics/:hospitalKey',
 	errorHandler(async (req, res) => {
 		const { hospitalKey } = req.params;
 
-		const totalGenderCount =
-			await getTotalDoctorsByHospitalStatsGroupedByGender(hospitalKey);
+		const totalGenderCount = await getTotalDoctorsByHospitalStatsGroupedByGender(hospitalKey);
 		const totalDoctorCount = await getTotalHospitalDoctorCount(hospitalKey);
-		const totalSpecialtyCount = await getTotalHospitalSpecialtyCount(
+		const totalSpecialtyCount = await getTotalHospitalSpecialtyCount(hospitalKey);
+		const totalSpecialtyCountGroupedByGender = await getTotalDoctorsByHospitalStatsGroupedByGenderAndSpecialty(
 			hospitalKey
 		);
-		const totalSpecialtyCountGroupedByGender =
-			await getTotalDoctorsByHospitalStatsGroupedByGenderAndSpecialty(
-				hospitalKey
-			);
 
-		const formatHospitalSpecialtyCountGroupedByGender =
-			formatHospitalSpecialtyCountByGender(
-				totalSpecialtyCountGroupedByGender
-			);
-		const formattedGenderCount =
-			formatHospitalGenderCount(totalGenderCount);
-		const formattedDoctorsCount =
-			formatTotalPropertyCount(totalDoctorCount);
-		const formattedSpecialtyCount =
-			formatHospitalSpecialtyCount(totalSpecialtyCount);
+		const formatHospitalSpecialtyCountGroupedByGender = formatHospitalSpecialtyCountByGender(
+			totalSpecialtyCountGroupedByGender
+		);
+		const formattedGenderCount = formatHospitalGenderCount(totalGenderCount);
+		const formattedDoctorsCount = formatTotalPropertyCount(totalDoctorCount);
+		const formattedSpecialtyCount = formatHospitalSpecialtyCount(totalSpecialtyCount);
 
 		res.status(200).send({
-			specialtyCountGroupedByGender:
-				formatHospitalSpecialtyCountGroupedByGender,
+			specialtyCountGroupedByGender: formatHospitalSpecialtyCountGroupedByGender,
 			genderCount: formattedGenderCount,
 			doctorsCount: formattedDoctorsCount,
 			specialtyCount: formattedSpecialtyCount

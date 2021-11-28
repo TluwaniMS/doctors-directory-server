@@ -6,8 +6,7 @@ const {
 	getTotalOfHospitalsInDirectory,
 	getTotalOfMunicipalitiesInDirectory,
 	getTotalOfDoctorsGroupedBySpecialty,
-	getTotalDoctorsGroupedByGender,
-	
+	getTotalDoctorsGroupedByGender
 } = require('../database-services/main-directory-stats-service');
 const {
 	addSpecialtyNamesToSpecialties,
@@ -21,9 +20,7 @@ const {
 	getMunicipalitiesWithHospitalsAndNestedDoctorGenders,
 	getMunicipalitiesNestedWithHospitals
 } = require('../database-services/municpality-stats-service');
-const {
-	formatTotalPropertyCount
-} = require('../auxiliary-services/shared-services');
+const { formatTotalPropertyCount } = require('../auxiliary-services/shared-services');
 
 router.get(
 	'/main-directory-statistics',
@@ -31,39 +28,31 @@ router.get(
 		const totalOfDoctors = await getTotalOfDoctorsInDirectory();
 		const totalHospitals = await getTotalOfHospitalsInDirectory();
 		const totalMunicipalities = await getTotalOfMunicipalitiesInDirectory();
-		const totalDoctorsCountGroupedByGender =
-			await getTotalDoctorsGroupedByGender();
+		const totalDoctorsCountGroupedByGender = await getTotalDoctorsGroupedByGender();
 
-		const totalDoctorsGroupedInSpecialties =
-			await getTotalOfDoctorsGroupedBySpecialty();
-		const doctorsGroupedInSpecialtiesWithSpecialtyNames =
-			addSpecialtyNamesToSpecialties(totalDoctorsGroupedInSpecialties);
-
-		const municipalitiesWithHospitals =
-			await getMunicipalitiesNestedWithHospitals();
-		const municipalitiesWithHospitalCount =
-			calculateMunicipalityHospitalCount(municipalitiesWithHospitals);
-
-		const municipalitiesGenderCount =
-			await getMunicipalitiesWithHospitalsAndNestedDoctorGenders();
-		const municipalitiesWithGenderCount = calculateMunicipalityGenderCount(
-			municipalitiesGenderCount
+		const totalDoctorsGroupedInSpecialties = await getTotalOfDoctorsGroupedBySpecialty();
+		const doctorsGroupedInSpecialtiesWithSpecialtyNames = addSpecialtyNamesToSpecialties(
+			totalDoctorsGroupedInSpecialties
 		);
 
-		const formattedDoctorsCounts = formatTotalPropertyCount(totalOfDoctors)
-		const formattedHospitalCount = formatTotalPropertyCount(totalHospitals)
-		const formattedMunicipalityCount = formatTotalPropertyCount(totalMunicipalities)
-		const formattedGenderCount = formatTotalGroupedGenderCount(totalDoctorsCountGroupedByGender)
+		const municipalitiesWithHospitals = await getMunicipalitiesNestedWithHospitals();
+		const municipalitiesWithHospitalCount = calculateMunicipalityHospitalCount(municipalitiesWithHospitals);
+
+		const municipalitiesGenderCount = await getMunicipalitiesWithHospitalsAndNestedDoctorGenders();
+		const municipalitiesWithGenderCount = calculateMunicipalityGenderCount(municipalitiesGenderCount);
+
+		const formattedDoctorsCounts = formatTotalPropertyCount(totalOfDoctors);
+		const formattedHospitalCount = formatTotalPropertyCount(totalHospitals);
+		const formattedMunicipalityCount = formatTotalPropertyCount(totalMunicipalities);
+		const formattedGenderCount = formatTotalGroupedGenderCount(totalDoctorsCountGroupedByGender);
 		await res.status(200).send({
 			totalDoctors: formattedDoctorsCounts,
 			totalHospitals: formattedHospitalCount,
 			totalMunicipalities: formattedMunicipalityCount,
 			totalDoctorsGroupedByGender: formattedGenderCount,
-			totalDoctorsGroupedBySpecialty:
-				doctorsGroupedInSpecialtiesWithSpecialtyNames,
+			totalDoctorsGroupedBySpecialty: doctorsGroupedInSpecialtiesWithSpecialtyNames,
 			totalHospitalsOfEachMunicipality: municipalitiesWithHospitalCount,
-			totalGenderCountOfDoctorsInMunicipality:
-				municipalitiesWithGenderCount
+			totalGenderCountOfDoctorsInMunicipality: municipalitiesWithGenderCount
 		});
 	})
 );

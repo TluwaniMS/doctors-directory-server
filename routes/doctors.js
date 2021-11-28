@@ -20,15 +20,7 @@ router.get(
 
 		const doctor = await Doctor.findAll({
 			where: { id: doctorId },
-			attributes: [
-				'id',
-				'firstName',
-				'lastName',
-				'gender',
-				'hospital',
-				'specialty',
-				'email'
-			]
+			attributes: ['id', 'firstName', 'lastName', 'gender', 'hospital', 'specialty', 'email']
 		});
 
 		res.status(200).send({ data: doctor });
@@ -90,14 +82,7 @@ router.get(
 
 		const doctors = await Doctor.findAll({
 			where: { hospital: hospitalKey },
-			attributes: [
-				'id',
-				'firstName',
-				'lastName',
-				'gender',
-				'specialty',
-				'email'
-			]
+			attributes: ['id', 'firstName', 'lastName', 'gender', 'specialty', 'email']
 		});
 
 		res.status(200).send({ data: doctors });

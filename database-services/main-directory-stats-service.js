@@ -14,9 +14,7 @@ async function getTotalOfDoctorsInDirectory() {
 
 async function getTotalOfHospitalsInDirectory() {
 	const totalHospitals = await Hospital.findAll({
-		attributes: [
-			[sequelize.fn('COUNT', sequelize.col('hospitalKey')), 'total']
-		],
+		attributes: [[sequelize.fn('COUNT', sequelize.col('hospitalKey')), 'total']],
 		raw: true
 	});
 
@@ -25,9 +23,7 @@ async function getTotalOfHospitalsInDirectory() {
 
 async function getTotalOfMunicipalitiesInDirectory() {
 	const totalMunicipalities = await Municipality.findAll({
-		attributes: [
-			[sequelize.fn('COUNT', sequelize.col('municipalityKey')), 'total']
-		],
+		attributes: [[sequelize.fn('COUNT', sequelize.col('municipalityKey')), 'total']],
 		raw: true
 	});
 
@@ -36,10 +32,7 @@ async function getTotalOfMunicipalitiesInDirectory() {
 
 async function getTotalOfDoctorsGroupedBySpecialty() {
 	const specialtyCount = await Doctor.findAll({
-		attributes: [
-			'specialty',
-			[sequelize.fn('COUNT', sequelize.col('specialty')), 'total']
-		],
+		attributes: ['specialty', [sequelize.fn('COUNT', sequelize.col('specialty')), 'total']],
 		group: ['specialty'],
 		raw: true
 	});
@@ -49,10 +42,7 @@ async function getTotalOfDoctorsGroupedBySpecialty() {
 
 async function getTotalDoctorsGroupedByGender() {
 	const doctorsGroupedByGenderCount = await Doctor.findAll({
-		attributes: [
-			'gender',
-			[sequelize.fn('COUNT', sequelize.col('gender')), 'total']
-		],
+		attributes: ['gender', [sequelize.fn('COUNT', sequelize.col('gender')), 'total']],
 		group: ['gender'],
 		raw: true
 	});

@@ -13,15 +13,10 @@ async function getTotalSpecialtyCountBySpecialtyKey(specialtyKey) {
 	return doctorsGroupedByGenderCount;
 }
 
-async function getTotalOfDoctorsGroupedByGenderAndSpecialtyBySpecialtyKey(
-	specialtyKey
-) {
+async function getTotalOfDoctorsGroupedByGenderAndSpecialtyBySpecialtyKey(specialtyKey) {
 	const specialtyCount = await Doctor.findAll({
 		where: { specialty: specialtyKey },
-		attributes: [
-			'gender',
-			[sequelize.fn('COUNT', sequelize.col('gender')), 'total']
-		],
+		attributes: ['gender', [sequelize.fn('COUNT', sequelize.col('gender')), 'total']],
 		group: ['gender'],
 		raw: true
 	});
@@ -29,50 +24,43 @@ async function getTotalOfDoctorsGroupedByGenderAndSpecialtyBySpecialtyKey(
 	return specialtyCount;
 }
 
-async function getMunicipalitiesWithHospitalsAndNestedDoctorSpecialtiesAndGenderBySpecialtyKey(
-	specialtyKey
-) {
-	const municipalitiesWithHospitalsAndNestedDoctorSpecialtiesAndGender =
-		await Municipality.findAll({
-			attributes: ['municipalityName'],
-			include: [
-				{
-					model: Hospital,
-					attributes: ['hospitalName'],
-					include: [
-						{
-							model: Doctor,
-							attributes: ['specialty', 'gender'],
-							where: { specialty: specialtyKey }
-						}
-					]
-				}
-			],
-			raw: true,
-			nest: true
-		});
+async function getMunicipalitiesWithHospitalsAndNestedDoctorSpecialtiesAndGenderBySpecialtyKey(specialtyKey) {
+	const municipalitiesWithHospitalsAndNestedDoctorSpecialtiesAndGender = await Municipality.findAll({
+		attributes: ['municipalityName'],
+		include: [
+			{
+				model: Hospital,
+				attributes: ['hospitalName'],
+				include: [
+					{
+						model: Doctor,
+						attributes: ['specialty', 'gender'],
+						where: { specialty: specialtyKey }
+					}
+				]
+			}
+		],
+		raw: true,
+		nest: true
+	});
 
 	return municipalitiesWithHospitalsAndNestedDoctorSpecialtiesAndGender;
 }
 
-async function getHospitalsWithNestedDoctorSpecialtiesAndGenderBySpecialtyKey(
-	specialtyKey
-) {
-	const hospitalsAndNestedDoctorSpecialtiesAndGender = await Hospital.findAll(
-		{
-			attributes: ['hospitalName'],
-			include: [
-				{
-					model: Doctor,
-					attributes: ['specialty', 'gender'],
-					where: { specialty: specialtyKey }
-				}
-			],
+async function getHospitalsWithNestedDoctorSpecialtiesAndGenderBySpecialtyKey(specialtyKey) {
+	const hospitalsAndNestedDoctorSpecialtiesAndGender = await Hospital.findAll({
+		attributes: ['hospitalName'],
+		include: [
+			{
+				model: Doctor,
+				attributes: ['specialty', 'gender'],
+				where: { specialty: specialtyKey }
+			}
+		],
 
-			raw: true,
-			nest: true
-		}
-	);
+		raw: true,
+		nest: true
+	});
 
 	return hospitalsAndNestedDoctorSpecialtiesAndGender;
 }

@@ -2,10 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
-const {
-	unknownRequests,
-	errorResponse
-} = require('./middleware/error-handler');
+const { unknownRequests, errorResponse } = require('./middleware/error-handler');
 const doctorsRoute = require('./routes/doctors');
 const hospitalsRoute = require('./routes/hospitals');
 const authenticationsRoute = require('./routes/authentication');
@@ -21,9 +18,7 @@ const app = express();
 app.use(cors());
 app.use(helmet());
 app.use(express.json());
-app.use(
-	morgan(':method :url :status :res[content-length] - :response-time ms')
-);
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
 
 app.use('/api/doctors', doctorsRoute);
 app.use('/api/hospitals', hospitalsRoute);

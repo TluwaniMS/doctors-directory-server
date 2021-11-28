@@ -8,10 +8,7 @@ function createPasswordHash(password) {
 }
 
 function comparePassword(hashedPassword, submittedPassword) {
-	const passwordsMatch = bcrypt.compareSync(
-		submittedPassword,
-		hashedPassword
-	);
+	const passwordsMatch = bcrypt.compareSync(submittedPassword, hashedPassword);
 
 	return passwordsMatch;
 }

@@ -6,17 +6,14 @@ const { hospitals } = require('../sample-data/hospitals');
 function calculateMunicipalityHospitalCount(municipalitiesWithHospitals) {
 	const municipalitiesWithHospitalCount = [];
 
-	const municipalityNames = extractMunicipalityNames(
-		municipalitiesWithHospitals
-	);
+	const municipalityNames = extractMunicipalityNames(municipalitiesWithHospitals);
 
 	municipalityNames.forEach((municipality) => {
-		const hospitalsLinkedToMunicipality =
-			extractContentLinkedToMunicipality(
-				municipalitiesWithHospitals,
-				municipality,
-				MainDirectoryModelProperties.Hospitals
-			);
+		const hospitalsLinkedToMunicipality = extractContentLinkedToMunicipality(
+			municipalitiesWithHospitals,
+			municipality,
+			MainDirectoryModelProperties.Hospitals
+		);
 		const totalHospitals = hospitalsLinkedToMunicipality.length;
 
 		const formattedMunicipalityInfo = {
@@ -30,26 +27,19 @@ function calculateMunicipalityHospitalCount(municipalitiesWithHospitals) {
 	return municipalitiesWithHospitalCount;
 }
 
-function calculateMunicipalityDoctorsCount(
-	municipalitiesWithHospitalsAndNestedDoctors
-) {
+function calculateMunicipalityDoctorsCount(municipalitiesWithHospitalsAndNestedDoctors) {
 	const municipalitiesWithDoctorsCount = [];
 
-	const municipalityNames = extractMunicipalityNames(
-		municipalitiesWithHospitalsAndNestedDoctors
-	);
+	const municipalityNames = extractMunicipalityNames(municipalitiesWithHospitalsAndNestedDoctors);
 
 	municipalityNames.forEach((municipality) => {
-		const hospitalsLinkedToMunicipality =
-			extractContentLinkedToMunicipality(
-				municipalitiesWithHospitalsAndNestedDoctors,
-				municipality,
-				MainDirectoryModelProperties.Hospitals
-			);
-
-		const doctorsLinkedToHospitals = extractDoctorsLinkedToHospitals(
-			hospitalsLinkedToMunicipality
+		const hospitalsLinkedToMunicipality = extractContentLinkedToMunicipality(
+			municipalitiesWithHospitalsAndNestedDoctors,
+			municipality,
+			MainDirectoryModelProperties.Hospitals
 		);
+
+		const doctorsLinkedToHospitals = extractDoctorsLinkedToHospitals(hospitalsLinkedToMunicipality);
 
 		const totalDoctors = doctorsLinkedToHospitals.length;
 
@@ -64,36 +54,23 @@ function calculateMunicipalityDoctorsCount(
 	return municipalitiesWithDoctorsCount;
 }
 
-function calculateMunicipalityGenderCount(
-	municipalitiesWithHospitalsAndNestedDoctors
-) {
+function calculateMunicipalityGenderCount(municipalitiesWithHospitalsAndNestedDoctors) {
 	const municipalitiesWithDoctorsGenderCount = [];
 
-	const municipalityNames = extractMunicipalityNames(
-		municipalitiesWithHospitalsAndNestedDoctors
-	);
+	const municipalityNames = extractMunicipalityNames(municipalitiesWithHospitalsAndNestedDoctors);
 
 	municipalityNames.forEach((municipality) => {
-		const hospitalsLinkedToMunicipality =
-			extractContentLinkedToMunicipality(
-				municipalitiesWithHospitalsAndNestedDoctors,
-				municipality,
-				MainDirectoryModelProperties.Hospitals
-			);
-
-		const doctorsLinkedToHospitals = extractDoctorsLinkedToHospitals(
-			hospitalsLinkedToMunicipality
+		const hospitalsLinkedToMunicipality = extractContentLinkedToMunicipality(
+			municipalitiesWithHospitalsAndNestedDoctors,
+			municipality,
+			MainDirectoryModelProperties.Hospitals
 		);
 
-		const maleDoctors = extractDoctorsByGender(
-			doctorsLinkedToHospitals,
-			DoctorsModelProperties.Gender.Male
-		);
+		const doctorsLinkedToHospitals = extractDoctorsLinkedToHospitals(hospitalsLinkedToMunicipality);
 
-		const femaleDoctors = extractDoctorsByGender(
-			doctorsLinkedToHospitals,
-			DoctorsModelProperties.Gender.Female
-		);
+		const maleDoctors = extractDoctorsByGender(doctorsLinkedToHospitals, DoctorsModelProperties.Gender.Male);
+
+		const femaleDoctors = extractDoctorsByGender(doctorsLinkedToHospitals, DoctorsModelProperties.Gender.Female);
 
 		const totalMaleDoctors = maleDoctors.length;
 		const totalFemaleDoctors = femaleDoctors.length;
@@ -110,40 +87,28 @@ function calculateMunicipalityGenderCount(
 	return municipalitiesWithDoctorsGenderCount;
 }
 
-function calculateMunicipalitySpecialityCount(
-	municipalitiesWithHospitalsNestedWithDoctorSpecialties
-) {
+function calculateMunicipalitySpecialityCount(municipalitiesWithHospitalsNestedWithDoctorSpecialties) {
 	const municipalitiesWithDoctorsSpecialtyCount = [];
 
-	const municipalityNames = extractMunicipalityNames(
-		municipalitiesWithHospitalsNestedWithDoctorSpecialties
-	);
+	const municipalityNames = extractMunicipalityNames(municipalitiesWithHospitalsNestedWithDoctorSpecialties);
 
 	municipalityNames.forEach((municipality) => {
-		const hospitalsLinkedToMunicipality =
-			extractContentLinkedToMunicipality(
-				municipalitiesWithHospitalsNestedWithDoctorSpecialties,
-				municipality,
-				MainDirectoryModelProperties.Hospitals
-			);
-
-		const doctorsLinkedToHospitals = extractDoctorsLinkedToHospitals(
-			hospitalsLinkedToMunicipality
+		const hospitalsLinkedToMunicipality = extractContentLinkedToMunicipality(
+			municipalitiesWithHospitalsNestedWithDoctorSpecialties,
+			municipality,
+			MainDirectoryModelProperties.Hospitals
 		);
 
-		const formattedSpecialtyCounts =
-			extractDoctorsSpecialtyAndCalculateTotalCount(
-				doctorsLinkedToHospitals
-			);
+		const doctorsLinkedToHospitals = extractDoctorsLinkedToHospitals(hospitalsLinkedToMunicipality);
+
+		const formattedSpecialtyCounts = extractDoctorsSpecialtyAndCalculateTotalCount(doctorsLinkedToHospitals);
 
 		const preparedMunicipalityWithSpecialtyCounts = {
 			municipalityName: municipality,
 			specialties: formattedSpecialtyCounts
 		};
 
-		municipalitiesWithDoctorsSpecialtyCount.push(
-			preparedMunicipalityWithSpecialtyCounts
-		);
+		municipalitiesWithDoctorsSpecialtyCount.push(preparedMunicipalityWithSpecialtyCounts);
 	});
 
 	return municipalitiesWithDoctorsSpecialtyCount;
@@ -154,26 +119,19 @@ function calculateMunicipalitySpecialitiesGroupedByGenderCount(
 ) {
 	const municipalitiesWithDoctorsSpecialtyCountGroupedByGender = [];
 
-	const municipalityNames = extractMunicipalityNames(
-		municipalitiesWithHospitalsNestedWithDoctorSpecialtiesAndGender
-	);
+	const municipalityNames = extractMunicipalityNames(municipalitiesWithHospitalsNestedWithDoctorSpecialtiesAndGender);
 
 	municipalityNames.forEach((municipality) => {
-		const hospitalsLinkedToMunicipality =
-			extractContentLinkedToMunicipality(
-				municipalitiesWithHospitalsNestedWithDoctorSpecialtiesAndGender,
-				municipality,
-				MainDirectoryModelProperties.Hospitals
-			);
-
-		const doctorsLinkedToHospitals = extractDoctorsLinkedToHospitals(
-			hospitalsLinkedToMunicipality
+		const hospitalsLinkedToMunicipality = extractContentLinkedToMunicipality(
+			municipalitiesWithHospitalsNestedWithDoctorSpecialtiesAndGender,
+			municipality,
+			MainDirectoryModelProperties.Hospitals
 		);
 
+		const doctorsLinkedToHospitals = extractDoctorsLinkedToHospitals(hospitalsLinkedToMunicipality);
+
 		const formattedSpecialtyCountsGroupedByGender =
-			extractDoctorsSpecialtyGroupedByGenderAndCalculateTotalCount(
-				doctorsLinkedToHospitals
-			);
+			extractDoctorsSpecialtyGroupedByGenderAndCalculateTotalCount(doctorsLinkedToHospitals);
 
 		const preparedMunicipalityWithSpecialtyCountsGroupedByGender = {
 			municipalityName: municipality,
@@ -189,42 +147,30 @@ function calculateMunicipalitySpecialitiesGroupedByGenderCount(
 }
 
 function extractMunicipalityNames(municipalitiesWithHospitals) {
-	const municipalityNames = municipalitiesWithHospitals.map(
-		(municipality) => municipality.municipalityName
-	);
+	const municipalityNames = municipalitiesWithHospitals.map((municipality) => municipality.municipalityName);
 
 	const uniqueMunicipalityNames = [...new Set(municipalityNames)];
 
 	return uniqueMunicipalityNames;
 }
 
-function extractContentLinkedToMunicipality(
-	municipalitiesWithHospitals,
-	municipalityName,
-	property
-) {
+function extractContentLinkedToMunicipality(municipalitiesWithHospitals, municipalityName, property) {
 	const contentLinkedToMunicipality = municipalitiesWithHospitals.filter(
 		(municipality) => municipality.municipalityName === municipalityName
 	);
-	const content = contentLinkedToMunicipality.map(
-		(municipality) => municipality[property]
-	);
+	const content = contentLinkedToMunicipality.map((municipality) => municipality[property]);
 
 	return content;
 }
 
 function extractDoctorsLinkedToHospitals(hospitalsWithDoctors) {
-	const doctors = hospitalsWithDoctors.map(
-		(hospital) => hospital[MainDirectoryModelProperties.Doctors]
-	);
+	const doctors = hospitalsWithDoctors.map((hospital) => hospital[MainDirectoryModelProperties.Doctors]);
 
 	return doctors;
 }
 
 function extractDoctorsByGender(doctors, gender) {
-	const doctorsOfASpecificGender = doctors.filter(
-		(doctor) => doctor.gender === gender
-	);
+	const doctorsOfASpecificGender = doctors.filter((doctor) => doctor.gender === gender);
 
 	return doctorsOfASpecificGender;
 }
@@ -233,9 +179,7 @@ function extractDoctorsSpecialtyAndCalculateTotalCount(doctors) {
 	const preparedDoctorsSpecialtyCounts = [];
 
 	ArrayOfSpecialtyModelProperties.forEach((specialty) => {
-		const doctorsLinkedToSpecialty = doctors.filter(
-			(doctor) => doctor.specialty === specialty.SpecialtyKey
-		);
+		const doctorsLinkedToSpecialty = doctors.filter((doctor) => doctor.specialty === specialty.SpecialtyKey);
 
 		const totalDoctorsLinkedToSpecialty = doctorsLinkedToSpecialty.length;
 
@@ -256,18 +200,15 @@ function extractDoctorsSpecialtyGroupedByGenderAndCalculateTotalCount(doctors) {
 	ArrayOfSpecialtyModelProperties.forEach((specialty) => {
 		const maleDoctorsLinkedToSpecialty = doctors.filter(
 			(doctor) =>
-				doctor.specialty === specialty.SpecialtyKey &&
-				doctor.gender === DoctorsModelProperties.Gender.Male
+				doctor.specialty === specialty.SpecialtyKey && doctor.gender === DoctorsModelProperties.Gender.Male
 		);
 		const femaleDoctorsLinkedToSpecialty = doctors.filter(
 			(doctor) =>
-				doctor.specialty === specialty.SpecialtyKey &&
-				doctor.gender === DoctorsModelProperties.Gender.Female
+				doctor.specialty === specialty.SpecialtyKey && doctor.gender === DoctorsModelProperties.Gender.Female
 		);
 
 		const totalMaleDoctorsInSpecialty = maleDoctorsLinkedToSpecialty.length;
-		const totalFemaleDoctorsInSpecialty =
-			femaleDoctorsLinkedToSpecialty.length;
+		const totalFemaleDoctorsInSpecialty = femaleDoctorsLinkedToSpecialty.length;
 
 		const formattedSpecialtyCount = {
 			SpecialtyName: specialty.SpecialtyName,
@@ -275,31 +216,22 @@ function extractDoctorsSpecialtyGroupedByGenderAndCalculateTotalCount(doctors) {
 			femaleCount: totalFemaleDoctorsInSpecialty
 		};
 
-		preparedDoctorsSpecialtyGroupedByGenderCounts.push(
-			formattedSpecialtyCount
-		);
+		preparedDoctorsSpecialtyGroupedByGenderCounts.push(formattedSpecialtyCount);
 	});
 
 	return preparedDoctorsSpecialtyGroupedByGenderCounts;
 }
 
-function calculateTotalDoctorsInHospitalsAndFormatData(
-	municipalHospitalsWithDoctors
-) {
+function calculateTotalDoctorsInHospitalsAndFormatData(municipalHospitalsWithDoctors) {
 	const preparedHospitals = [];
-	const municipalHospitals = municipalHospitalsWithDoctors.map(
-		(municipality) => municipality.Hospitals
-	);
+	const municipalHospitals = municipalHospitalsWithDoctors.map((municipality) => municipality.Hospitals);
 
 	hospitals.forEach((hospital) => {
 		const linkedHospitals = municipalHospitals.filter(
-			(municipalHosp) =>
-				municipalHosp.hospitalName === hospital.hospitalName
+			(municipalHosp) => municipalHosp.hospitalName === hospital.hospitalName
 		);
 
-		let totalDoctorsInHospitalArray = linkedHospitals.map(
-			(hosp) => hosp.Doctors
-		);
+		let totalDoctorsInHospitalArray = linkedHospitals.map((hosp) => hosp.Doctors);
 
 		const preparedHospitalData =
 			linkedHospitals.length > 0
@@ -309,9 +241,7 @@ function calculateTotalDoctorsInHospitalsAndFormatData(
 				  }
 				: '';
 
-		linkedHospitals.length > 0
-			? preparedHospitals.push(preparedHospitalData)
-			: '';
+		linkedHospitals.length > 0 ? preparedHospitals.push(preparedHospitalData) : '';
 	});
 
 	return preparedHospitals;

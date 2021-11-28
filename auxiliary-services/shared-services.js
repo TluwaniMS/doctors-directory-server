@@ -1,8 +1,6 @@
 const { getAllDoctors } = require('../database-services/doctors-service');
 const { getAllHospitals } = require('../database-services/hospitals-service');
-const {
-	getAllSpecialties
-} = require('../database-services/specialties-service');
+const { getAllSpecialties } = require('../database-services/specialties-service');
 
 async function calculateBasicDirectoryStatsForMunicipalView() {
 	const doctors = await getAllDoctors();
@@ -13,20 +11,12 @@ async function calculateBasicDirectoryStatsForMunicipalView() {
 	const totalHospitals = hospitals.length;
 	const totalSpecialties = specialties.length;
 
-	const basicStats = structureBasicDirectoryStats(
-		totalDoctors,
-		totalHospitals,
-		totalSpecialties
-	);
+	const basicStats = structureBasicDirectoryStats(totalDoctors, totalHospitals, totalSpecialties);
 
 	return basicStats;
 }
 
-function structureBasicDirectoryStats(
-	totalDoctors,
-	totalHospitals,
-	totalSpecialties
-) {
+function structureBasicDirectoryStats(totalDoctors, totalHospitals, totalSpecialties) {
 	const basicStats = {
 		totalDoctors,
 		totalHospitals,
@@ -40,10 +30,7 @@ function getBasicStatsForSingleMunicipality(hospitals, doctors) {
 	const totalDoctors = doctors.length;
 	const totalHospitals = hospitals.length;
 
-	const basicStats = structureBasicStatsForMunicipality(
-		totalDoctors,
-		totalHospitals
-	);
+	const basicStats = structureBasicStatsForMunicipality(totalDoctors, totalHospitals);
 
 	return basicStats;
 }

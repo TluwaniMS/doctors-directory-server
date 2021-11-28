@@ -12,17 +12,11 @@ const { hospitals } = require('../sample-data/hospitals');
 function formatSpecialtyCountByGender(specialtyCount) {
 	const preparedSpecialtyCountGroupedByGender = [];
 
-	const linkedMaleCount = specialtyCount.filter(
-		(count) => count.gender === DoctorsModelProperties.Gender.Male
-	);
-	const linkedFemaleCount = specialtyCount.filter(
-		(count) => count.gender === DoctorsModelProperties.Gender.Female
-	);
+	const linkedMaleCount = specialtyCount.filter((count) => count.gender === DoctorsModelProperties.Gender.Male);
+	const linkedFemaleCount = specialtyCount.filter((count) => count.gender === DoctorsModelProperties.Gender.Female);
 
-	const maleCount =
-		linkedMaleCount.length > 0 ? parseInt(linkedMaleCount[0].total) : 0;
-	const femaleCount =
-		linkedFemaleCount.length > 0 ? parseInt(linkedFemaleCount[0].total) : 0;
+	const maleCount = linkedMaleCount.length > 0 ? parseInt(linkedMaleCount[0].total) : 0;
+	const femaleCount = linkedFemaleCount.length > 0 ? parseInt(linkedFemaleCount[0].total) : 0;
 
 	const maleCountObject = {
 		gender: DoctorsModelProperties.Gender.Male,
@@ -33,41 +27,26 @@ function formatSpecialtyCountByGender(specialtyCount) {
 		total: femaleCount
 	};
 
-	preparedSpecialtyCountGroupedByGender.push(
-		maleCountObject,
-		femaleCountObject
-	);
+	preparedSpecialtyCountGroupedByGender.push(maleCountObject, femaleCountObject);
 
 	return preparedSpecialtyCountGroupedByGender;
 }
 
-function formatSpecialtyCountInMunicipalityByGenderAndSpecialty(
-	specialtyCount
-) {
-	const preparedMunicipalitiesWithDoctorscountGroupedByGenderAndSpecialty =
-		[];
+function formatSpecialtyCountInMunicipalityByGenderAndSpecialty(specialtyCount) {
+	const preparedMunicipalitiesWithDoctorscountGroupedByGenderAndSpecialty = [];
 	const municipalityNames = extractMunicipalityNames(specialtyCount);
 
 	municipalityNames.forEach((municipality) => {
-		const hospitalsLinkedToMunicipality =
-			extractContentLinkedToMunicipality(
-				specialtyCount,
-				municipality,
-				MainDirectoryModelProperties.Hospitals
-			);
-
-		const doctorsLinkedToHospitals = extractDoctorsLinkedToHospitals(
-			hospitalsLinkedToMunicipality
+		const hospitalsLinkedToMunicipality = extractContentLinkedToMunicipality(
+			specialtyCount,
+			municipality,
+			MainDirectoryModelProperties.Hospitals
 		);
 
-		const maleDoctors = extractDoctorsByGender(
-			doctorsLinkedToHospitals,
-			DoctorsModelProperties.Gender.Male
-		);
-		const femaleDoctors = extractDoctorsByGender(
-			doctorsLinkedToHospitals,
-			DoctorsModelProperties.Gender.Female
-		);
+		const doctorsLinkedToHospitals = extractDoctorsLinkedToHospitals(hospitalsLinkedToMunicipality);
+
+		const maleDoctors = extractDoctorsByGender(doctorsLinkedToHospitals, DoctorsModelProperties.Gender.Male);
+		const femaleDoctors = extractDoctorsByGender(doctorsLinkedToHospitals, DoctorsModelProperties.Gender.Female);
 
 		const totalMaleDoctors = maleDoctors.length;
 		const totalFemaleDoctors = femaleDoctors.length;
@@ -78,9 +57,7 @@ function formatSpecialtyCountInMunicipalityByGenderAndSpecialty(
 			totalFemaleDoctors: totalFemaleDoctors
 		};
 
-		preparedMunicipalitiesWithDoctorscountGroupedByGenderAndSpecialty.push(
-			preparedMunicipality
-		);
+		preparedMunicipalitiesWithDoctorscountGroupedByGenderAndSpecialty.push(preparedMunicipality);
 	});
 
 	return preparedMunicipalitiesWithDoctorscountGroupedByGenderAndSpecialty;
@@ -93,16 +70,12 @@ function formatSpecialtyCountGroupedByGenderInHoispitals(specialtyCount) {
 		hospitalsLinkedToCurrentHospital = specialtyCount.filter(
 			(count) => count.hospitalName === hospital.hospitalName
 		);
-		doctorsLinkedToHospital = hospitalsLinkedToCurrentHospital.map(
-			(hospital) => hospital.Doctors
-		);
+		doctorsLinkedToHospital = hospitalsLinkedToCurrentHospital.map((hospital) => hospital.Doctors);
 
 		femaleCount = doctorsLinkedToHospital.filter(
 			(doctor) => doctor.gender === DoctorsModelProperties.Gender.Female
 		);
-		maleCount = doctorsLinkedToHospital.filter(
-			(doctor) => doctor.gender === DoctorsModelProperties.Gender.Male
-		);
+		maleCount = doctorsLinkedToHospital.filter((doctor) => doctor.gender === DoctorsModelProperties.Gender.Male);
 
 		totalMaleCount = maleCount.length;
 		totalFemaleCount = femaleCount.length;
@@ -113,9 +86,7 @@ function formatSpecialtyCountGroupedByGenderInHoispitals(specialtyCount) {
 			totalMaleDoctors: totalMaleCount
 		};
 
-		preparedHospitalsWithSpecialtyCountGroupedByGender.push(
-			preparedHospitalHospital
-		);
+		preparedHospitalsWithSpecialtyCountGroupedByGender.push(preparedHospitalHospital);
 	});
 
 	return preparedHospitalsWithSpecialtyCountGroupedByGender;

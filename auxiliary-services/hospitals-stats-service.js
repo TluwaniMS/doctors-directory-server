@@ -5,16 +5,11 @@ function formatHospitalSpecialtyCount(specialtyCounts) {
 	const preparedSpecialtyCounts = [];
 
 	ArrayOfSpecialtyModelProperties.forEach((specialty) => {
-		const linkedSpecialty = specialtyCounts.filter(
-			(count) => count.specialty === specialty.SpecialtyKey
-		);
+		const linkedSpecialty = specialtyCounts.filter((count) => count.specialty === specialty.SpecialtyKey);
 
 		const preparedSpecialty =
 			linkedSpecialty.length > 0
-				? prepareSpecialtyWithCountData(
-						specialty,
-						linkedSpecialty[0].total
-				  )
+				? prepareSpecialtyWithCountData(specialty, linkedSpecialty[0].total)
 				: prepareSpecialtyWithNoCountData(specialty);
 
 		preparedSpecialtyCounts.push(preparedSpecialty);
@@ -27,23 +22,15 @@ function formatHospitalSpecialtyCountByGender(specialtyCounts) {
 	const preparedSpecialtyCountGroupedByGender = [];
 
 	ArrayOfSpecialtyModelProperties.forEach((specialty) => {
-		const linkedSpecialty = specialtyCounts.filter(
-			(count) => count.specialty === specialty.SpecialtyKey
-		);
+		const linkedSpecialty = specialtyCounts.filter((count) => count.specialty === specialty.SpecialtyKey);
 
-		const linkedMaleCount = linkedSpecialty.filter(
-			(count) => count.gender === DoctorsModelProperties.Gender.Male
-		);
+		const linkedMaleCount = linkedSpecialty.filter((count) => count.gender === DoctorsModelProperties.Gender.Male);
 		const linkedFemaleCount = linkedSpecialty.filter(
 			(count) => count.gender === DoctorsModelProperties.Gender.Female
 		);
 
-		const maleCount =
-			linkedMaleCount.length > 0 ? parseInt(linkedMaleCount[0].total) : 0;
-		const femaleCount =
-			linkedFemaleCount.length > 0
-				? parseInt(linkedFemaleCount[0].total)
-				: 0;
+		const maleCount = linkedMaleCount.length > 0 ? parseInt(linkedMaleCount[0].total) : 0;
+		const femaleCount = linkedFemaleCount.length > 0 ? parseInt(linkedFemaleCount[0].total) : 0;
 
 		const maleCountObject = {
 			gender: DoctorsModelProperties.Gender.Male,
@@ -68,33 +55,20 @@ function formatHospitalSpecialtyCountByGender(specialtyCounts) {
 function formatHospitalGenderCount(genderCount) {
 	const formattedGenderCount = [];
 
-	const maleCount = genderCount.filter(
-		(count) => count.gender === DoctorsModelProperties.Gender.Male
-	);
-	const femaleCount = genderCount.filter(
-		(count) => count.gender === DoctorsModelProperties.Gender.Female
-	);
+	const maleCount = genderCount.filter((count) => count.gender === DoctorsModelProperties.Gender.Male);
+	const femaleCount = genderCount.filter((count) => count.gender === DoctorsModelProperties.Gender.Female);
 
 	const formattedTotalMaleCount =
 		maleCount.length > 0
-			? createGenderCountObject(
-					DoctorsModelProperties.Gender.Male,
-					parseInt(maleCount[0].total)
-			  )
+			? createGenderCountObject(DoctorsModelProperties.Gender.Male, parseInt(maleCount[0].total))
 			: createGenderCountObject(DoctorsModelProperties.Gender.Male);
 
 	const formattedTotaFemaleCount =
 		femaleCount.length > 0
-			? createGenderCountObject(
-					DoctorsModelProperties.Gender.Female,
-					parseInt(femaleCount[0].total)
-			  )
+			? createGenderCountObject(DoctorsModelProperties.Gender.Female, parseInt(femaleCount[0].total))
 			: createGenderCountObject(DoctorsModelProperties.Gender.Female);
 
-	formattedGenderCount.push(
-		formattedTotalMaleCount,
-		formattedTotaFemaleCount
-	);
+	formattedGenderCount.push(formattedTotalMaleCount, formattedTotaFemaleCount);
 
 	return formattedGenderCount;
 }

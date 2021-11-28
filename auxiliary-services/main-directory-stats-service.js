@@ -5,8 +5,7 @@ function addSpecialtyNamesToSpecialties(specialties) {
 
 	ArrayOfSpecialtyModelProperties.forEach((specialty) => {
 		const linkedSpecialty = specialties.filter(
-			(specialtyStat) =>
-				specialtyStat.specialty === specialty.SpecialtyKey
+			(specialtyStat) => specialtyStat.specialty === specialty.SpecialtyKey
 		)[0];
 
 		linkedSpecialty.specialtyName = specialty.SpecialtyName;

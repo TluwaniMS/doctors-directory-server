@@ -11,6 +11,10 @@ This is a basic node-js project that I created to learn how to connect node-js t
 ## NB!
 Please make sure you have a running instance of Postgres.
 
+* Step 1:
+
+Switch to the projects root directory and run "npm install" to install the rquired packages.
+
 # Dependencies:
 * CORS
 * DOTENV

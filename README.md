@@ -13,7 +13,27 @@ Please make sure you have a running instance of Postgres.
 
 * Step 1:
 
-Switch to the projects root directory and run "npm install" to install the rquired packages.
+Switch to the projects root directory and run `npm install` to install the required packages.
+
+* Step 2:
+
+In the projects root directory create a `.env` file and add the following variables:
+
+`PORT`
+
+`SALT_ROUNDS`
+
+`DB_PASSWORD`
+
+`DB_USERNAME`
+
+* Step 3:
+
+Run `npm  run dev` to start-up the server and access the end-points on `http://localhost:PORT/api/`.
+
+## NB!
+
+To populate the database run `npm run populate-database`.
 
 # Dependencies:
 * CORS

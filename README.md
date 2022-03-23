@@ -31,9 +31,6 @@ In the projects root directory create a `.env` file and add the following variab
 
 Run `npm  run dev` to start-up the server and access the end-points on `http://localhost:PORT/api/`.
 
-## NB!
-
-To populate the database run `npm run populate-database`.
 
 # Dependencies:
 * CORS

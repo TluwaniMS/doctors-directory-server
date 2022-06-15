@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: "Test-component"
+  name: "Doctors-directoy"
   annotations:
    github.com/project-slug: doctors-directory-server
 spec:

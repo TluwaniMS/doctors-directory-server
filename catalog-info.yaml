@@ -3,7 +3,7 @@ kind: Component
 metadata:
   name: "Doctors-directoy"
   annotations:
-   github.com/project-slug: doctors-directory-server
+   github.com/project-slug: /TluwaniMS/doctors-directory-server
 spec:
   type: service
   owner: user:guest

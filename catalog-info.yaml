@@ -6,5 +6,5 @@ metadata:
    github.com/project-slug: TluwaniMS/doctors-directory-server
 spec:
   type: service
-  owner: TluwaniMS
+  owner: vhatwanamba
   lifecycle: experimental

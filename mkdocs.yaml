@@ -1,0 +1,10 @@
+
+site_name: "Doctors-directoy"
+site_description: "This is a basic node-js project that I created to learn how to connect node-js to an SQL database(Postrgres)"
+
+nav:
+  - Introduction: index.md
+  - Nav-testing: nav-view-test.md
+
+plugins:
+  - techdocs-core

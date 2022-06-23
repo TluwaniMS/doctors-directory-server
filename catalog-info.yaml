@@ -7,7 +7,5 @@ metadata:
    backstage.io/techdocs-ref: dir:.
 spec:
   type: service
-  owner:
-    kind: User
-    name: TluwaniMS
+  owner: vhatwanamba
   lifecycle: experimental

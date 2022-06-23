@@ -4,6 +4,7 @@ metadata:
   name: "Doctors-directoy"
   annotations:
    github.com/project-slug: TluwaniMS/doctors-directory-server
+   backstage.io/techdocs-ref: dir:.
 spec:
   type: service
   owner:

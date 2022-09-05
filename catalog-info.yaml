@@ -5,6 +5,8 @@ metadata:
   annotations:
    github.com/project-slug: TluwaniMS/doctors-directory-server
    backstage.io/techdocs-ref: dir:.
+   jira/project-key: VHAT
+   jira/token-type: Bearer
 spec:
   type: service
   owner: vhatwanamba
